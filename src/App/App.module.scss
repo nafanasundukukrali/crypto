@@ -1,0 +1,20 @@
+@import "@styles/colors.scss";
+@import "@styles/variables.scss";
+@import "@styles/mixin.scss";
+
+.App__Main-div {
+  background: $mainBackgroundColor;
+  height: 100%;
+  box-sizing: content-box;
+  padding: 5vh 5vw 5vh 5vw;
+  @include flexboxWithCenterColumnContent;
+
+  @media (max-width: $screenIpadMini) {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+  @media (min-width: $screenSmallLaptop) {
+    width: 80%;
+  }
+}

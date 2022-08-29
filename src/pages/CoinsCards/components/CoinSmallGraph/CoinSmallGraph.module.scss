@@ -1,0 +1,10 @@
+@import "@styles/colors.scss";
+:export {
+  red: $redColor;
+  green: $greenColor;
+}
+.CoinSmallGraph {
+  position: relative;
+  width: 100%;
+  height: 90%;
+}

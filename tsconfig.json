@@ -6,6 +6,15 @@
       "dom.iterable",
       "esnext"
     ],
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["src/components/*"],
+      "@config/*": ["src/config/*"],
+      "@styles/*": ["src/styles/*"],
+      "@utils/*": ["src/utils/*"],
+      "@pages/*": ["src/pages/*"],
+      "@fonts/*": ["src/fonts/*"]
+    },
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -21,6 +30,7 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src"
+    "src",
+    "./declaration.d.ts"
   ]
 }

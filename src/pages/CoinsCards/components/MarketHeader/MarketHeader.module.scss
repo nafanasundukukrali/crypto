@@ -1,0 +1,75 @@
+@import "@styles/colors.scss";
+@import "@styles/variables.scss";
+
+.MarketHeader__main-block {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-areas:
+    "A A A B B B"
+    "C C C D D D";
+  grid-row-gap: 1.5rem;
+  height: max-content;
+  padding: 10px;
+  margin-bottom: 20px;
+
+  .MarketHeader__market-status {
+    grid-area: A;
+
+    .MarketHeader__market-status__header {
+      font-weight: 500;
+      font-size: x-large !important;
+
+      @media (max-width: $screenIpadMini) {
+        font-size: large !important;
+      }
+
+
+      .MarketHeader__market-status__header__span_green {
+        color: $greenColor;
+        font-weight: 500;
+      }
+
+      .MarketHeader__market-status__header__span_red {
+        color: $redColor;
+        font-weight: 500;
+      }
+    }
+
+    & span:nth-child(2) {
+      font-size: small;
+      color: $secondFontColor;
+    }
+
+  }
+  .MarketHeader__search-item {
+    grid-area: B;
+  }
+  .MarketHeader__coins-item {
+    grid-area: C;
+    display: inline-block;
+    position: relative;
+    font-weight: 500;
+    text-align: start;
+    vertical-align: bottom;
+    box-sizing: border-box;
+
+    @media (min-width: $screenIpadMini) {
+      font-size: larger;
+    }
+  }
+
+  .MarketHeader__currency-dropdown {
+    grid-area: D;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    //justify-content: end !important;
+
+    @media (min-width: $screenIpadMini) {;
+    }
+  }
+}
+

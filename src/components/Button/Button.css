@@ -1,0 +1,38 @@
+.button {
+    position: relative;
+    font-size: 12px;
+    line-height: 15px;
+    box-sizing: content-box;
+    padding: 5px;
+    border: none;
+}
+
+.button:hover {
+    transition: 0.7s linear;
+}
+
+.button:not(:hover) {
+    transition: 0.7s linear;
+}
+
+.button_color-primary {
+    background-color: inherit;
+    color: #343A40;
+}
+
+.button_color-secondary {
+    background-color: #6C757D;
+    color: #F5F5F5;
+}
+
+
+.button:hover {
+    color: #F5F5F5;
+    background-color: #D90429;
+}
+
+.button:focus {
+    color: #F5F5F5;
+    background-color: #D90429;
+    text-decoration: underline;
+}
