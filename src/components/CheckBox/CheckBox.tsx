@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import "./CheckBox.css";
 
 type CheckBoxProps = Omit<
@@ -12,16 +12,18 @@ type CheckBoxProps = Omit<
 export const CheckBox: React.FC<CheckBoxProps> = ({ onChange, ...props }) => {
   const [value, setCheckStatus] = React.useState(true);
 
+  const changeCheckStatus = useCallback(() => {
+    setCheckStatus(!value);
+    onChange(!value);
+  }, [value, onChange]);
+
   return (
     <input
       type="checkbox"
       className="checkBox"
       {...props}
       checked={value}
-      onChange={(event) => {
-        setCheckStatus(!value);
-        onChange(!value);
-      }}
+      onChange={changeCheckStatus}
     />
   );
 };

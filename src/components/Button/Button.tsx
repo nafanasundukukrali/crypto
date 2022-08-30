@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useMemo } from "react";
 
-import { Loader } from "../Loader/Loader";
+import cn from "classnames";
+
+import Loader from "../Loader";
 import "./Button.css";
 
 /** Возможные раскраски кнопки */
-export enum ButtonColor {
+enum ButtonColor {
   /** Основная, акцентная кнопка */
   primary = "primary",
   /** Второстепенная кнопка */
@@ -12,7 +14,7 @@ export enum ButtonColor {
 }
 
 /** Пропсы, который принимает компонент Button */
-export type ButtonProps = React.PropsWithChildren<{
+type ButtonProps = React.PropsWithChildren<{
   /**
    * Если true, то внутри кнопки вместе с children отображается компонент Loader
    * Также кнопка должна переходить в состояние disabled
@@ -24,26 +26,22 @@ export type ButtonProps = React.PropsWithChildren<{
 }> &
   React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-export const Button: React.FC<ButtonProps> = ({
+const Button: React.FC<ButtonProps> = ({
   loading,
   color = ButtonColor.primary,
   children,
   ...props
 }) => {
-  let ClassNames = require("classnames");
-
-  let resultClassNameList = ClassNames(
-    "button",
-    loading || props["disabled"] ? "button_disabled" : null,
-    `button_color-${color}`
+  let resultClassNameList = useMemo(
+    () =>
+      cn(
+        "button",
+        loading || props["disabled"] ? "button_disabled" : null,
+        `button_color-${color}`,
+        props["className"]
+      ),
+    [loading, props, color]
   );
-
-  if (props["className"]) {
-    resultClassNameList = ClassNames(resultClassNameList, props["className"]);
-  }
-
-  if (Object.keys(props).length && props["className"])
-    delete props["className"];
 
   return (
     <button disabled={loading} className={resultClassNameList} {...props}>
@@ -52,3 +50,5 @@ export const Button: React.FC<ButtonProps> = ({
     </button>
   );
 };
+
+export default Button;

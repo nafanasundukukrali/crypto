@@ -1,5 +1,7 @@
-import React from "react";
+import React, { ChangeEvent, useCallback } from "react";
 import "./Input.css";
+
+import cn from "classnames";
 
 export type InputProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -12,15 +14,20 @@ export type InputProps = Omit<
 };
 
 export const Input: React.FC<InputProps> = ({ value, onChange, ...props }) => {
-  const classNameList = require("classnames")(
+  const classNameList = cn(
     props["className"],
     props["disabled"] ? "input_disabled" : null
   );
 
   const [text, setValue] = React.useState(value);
 
-  if (Object.keys(props).length && props["className"])
-    delete props["className"];
+  const changeValue = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      onChange(text + event.target.value);
+      setValue(text);
+    },
+    [onChange, text]
+  );
 
   return (
     <input
@@ -28,10 +35,7 @@ export const Input: React.FC<InputProps> = ({ value, onChange, ...props }) => {
       value={value}
       className={classNameList}
       {...props}
-      onChange={(event) => {
-        onChange(text + event.target.value);
-        setValue(text);
-      }}
+      onChange={changeValue}
     />
   );
 };

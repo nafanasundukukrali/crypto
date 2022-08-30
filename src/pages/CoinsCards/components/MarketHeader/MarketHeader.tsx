@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import MultiDropdown from "@components/MultiDropdown/MultiDropdown";
 import { Option } from "@components/MultiDropdown/MultiDropdown";
+import cn from "classnames";
 
 import style from "./MarketHeader.module.scss";
 
@@ -18,18 +19,19 @@ const MarketHeader: React.FC<MarketHeaderProps> = ({
   actualCurrencyValue,
   onClick,
 }) => {
+  // eslint-disable-next-line no-console
+  // console.log("Market had been Rendered!");
   return (
     <div className={style["MarketHeader__main-block"]}>
       <div className={style["MarketHeader__market-status"]}>
         <div className={style["MarketHeader__market-status__header"]}>
           Market is {capChangePercentage >= 0 ? " up " : " down "}
           <span
-            className={
-              style[
-                "MarketHeader__market-status__header__span_" +
-                  (capChangePercentage > 0 ? "green" : "red")
-              ]
-            }
+            className={cn(
+              capChangePercentage > 0
+                ? style["MarketHeader__market-status__header__span_green"]
+                : style["MarketHeader__market-status__header__span_red"]
+            )}
           >
             {capChangePercentage.toFixed(2)}
           </span>

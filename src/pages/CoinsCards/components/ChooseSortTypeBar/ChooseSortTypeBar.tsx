@@ -50,4 +50,6 @@ const ChooseSortTypeBar: React.FC<ChooseSortTypeBarProps> = ({
   );
 };
 
-export default ChooseSortTypeBar;
+export default React.memo(ChooseSortTypeBar, (prevProps, nextProps) => {
+  return prevProps.onClick === nextProps.onClick;
+});

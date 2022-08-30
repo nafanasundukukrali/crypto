@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 
 import styles from "./MultiDropdown.module.scss";
 
@@ -30,46 +30,50 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
   disabled,
   pluralizeOptions,
 }) => {
-  const [isVisible, setIsVisible] = React.useState(false);
-  const [clickedStyle, setStyle] = React.useState(["", ""]);
-  let [actualValue, setValueList] = React.useState<Option[]>(value);
+  const [isVisible, setVisible] = useState(false);
 
-  const handleVisible = () => {
-    setIsVisible(!isVisible);
+  const changeValueList = useCallback(
+    (el: Option) => {
+      if (value.indexOf(el) === -1) {
+        value = [el];
+      } else {
+        value = [
+          ...value.slice(0, value.indexOf(el)),
+          ...value.slice(value.indexOf(el) + 1),
+        ];
+      }
+      onChange(value);
+    },
+    [value]
+  );
 
-    if (!clickedStyle[0]) {
-      setStyle([
-        styles["multiDropdown__block__mainClickButton__icon_clicked"],
-        styles["multiDropdown__block__mainClickButton__clicked"],
-      ]);
-    } else {
-      setStyle(["", ""]);
-    }
-  };
-
-  React.useEffect(() => {
-    if (value || options) {
-      setValueList(value);
-    }
-  }, [value, options]);
+  const handleVisible = useCallback(() => setVisible((v) => !v), []);
 
   return (
     <div key="multiDropdown__block" className={"multiDropdown__block"}>
       <button
         key="multiDropdown__block__mainClickButton"
-        className={`${styles["multiDropdown__block__mainClickButton"]} ${clickedStyle[1]}`}
-        onClick={() => {
-          handleVisible();
-        }}
+        className={`${styles["multiDropdown__block__mainClickButton"]} ${
+          isVisible
+            ? styles["multiDropdown__block__mainClickButton__clicked"]
+            : null
+        }`}
+        onClick={handleVisible}
         disabled={disabled}
       >
         <div
           className={styles["multiDropdown__block__mainClickButton__content"]}
         >
-          {pluralizeOptions(actualValue)}
+          {pluralizeOptions(value)}
         </div>
         <div
-          className={`${styles["multiDropdown__block__mainClickButton__icon"]} ${clickedStyle[0]}`}
+          className={`${
+            styles["multiDropdown__block__mainClickButton__icon"]
+          } ${
+            isVisible
+              ? styles["multiDropdown__block__mainClickButton__icon_clicked"]
+              : null
+          }`}
         ></div>
       </button>
       {isVisible && !disabled && (
@@ -81,17 +85,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
             <div
               key={el.key}
               className={styles["multiDropdown__block__optionsList__option"]}
-              onClick={() => {
-                if (actualValue.indexOf(el) === -1) {
-                  actualValue = [el];
-                } else {
-                  actualValue = [
-                    ...actualValue.slice(0, actualValue.indexOf(el)),
-                    ...actualValue.slice(actualValue.indexOf(el) + 1),
-                  ];
-                }
-                onChange(actualValue);
-              }}
+              onClick={() => changeValueList(el)}
             >
               <div>{el.value}</div>
             </div>

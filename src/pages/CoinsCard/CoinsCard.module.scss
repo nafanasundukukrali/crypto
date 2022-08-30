@@ -62,13 +62,13 @@ body {
     padding-right: $baseFontSize * 0.3;
   }
   span:first-of-type {
-    @include baseTitleFont($screenIpadMini);
+    @include type-font-baseTitle($screenIpadMini);
     margin-right: $baseFontSize * 0.1;
   }
   span:last-of-type {
     display: inline-block;
     box-sizing: border-box;
-    @include baseSubtitleFont($screenIpadMini);
+    @include type-font-baseSubtitle($screenIpadMini);
   }
 }
 
@@ -81,7 +81,7 @@ body {
   margin: $smallFontSize * 0.5;
 
   span:first-of-type {
-    @include baseTitleFont($screenIpadMini);
+    @include type-font-baseTitle($screenIpadMini);
     display: inline-block;
     margin-left: $baseFontSize * 0.3;
     margin-right: $baseFontSize * 0.3;
@@ -91,7 +91,7 @@ body {
 
   span:not(:first-of-type) {
     text-align: center;
-    @include baseSubtitleFont($screenIpadMini);
+    @include type-font-baseSubtitle($screenIpadMini);
     height: 100%;
     vertical-align: center;
     align-items: center;
@@ -100,5 +100,11 @@ body {
 
 .CoinsCard__main-block__graph {
   width: 100%;
-  height: 40%;
+  height: 40vh;
+}
+
+.CoinsCard__main-block__choose-period {
+  box-sizing: border-box;
+  width: 100%;
+  height: fit-content;
 }

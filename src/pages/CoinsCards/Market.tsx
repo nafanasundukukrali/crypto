@@ -4,12 +4,14 @@ import {
   useCallback,
   useRef,
   SetStateAction,
+  useMemo,
 } from "react";
 
 import Card from "@components/Card";
 import ErrorReadDataMessage from "@components/ErrorReadDataMessage";
-import { Loader } from "@components/Loader/Loader";
+import Loader from "@components/Loader";
 import { Option } from "@components/MultiDropdown/MultiDropdown";
+import ROUTES from "@config/routes";
 import ChooseSortTypeBar from "@pages/CoinsCards/components/ChooseSortTypeBar";
 import CoinSmallGraph from "@pages/CoinsCards/components/CoinSmallGraph";
 import MarketHeader from "@pages/CoinsCards/components/MarketHeader";
@@ -45,8 +47,12 @@ const Market = () => {
   const navigate = useNavigate();
 
   const handleCoinNavigate = (id: string) => {
-    navigate(`/Card/${id}`, {
-      state: { from: { pathname: "/" }, currency: selectedCurrency },
+    const getNewCardPath = (id: string) => {
+      return `/Card/${id}`;
+    };
+
+    navigate(getNewCardPath(id), {
+      state: { from: { pathname: ROUTES.MARKET }, currency: selectedCurrency },
     });
   };
 
@@ -174,7 +180,7 @@ const Market = () => {
       });
   };
 
-  // Перетаскиваемый обзрвер для последнего элемента списка
+  // "Перетаскиваемый" обзервер для последнего элемента списка
   const observer = useRef<IntersectionObserver | null>();
   // Проверка того, что достигнут последний элемент текущего списка монет
   const lastComponentRendered = useCallback(
@@ -276,6 +282,10 @@ const Market = () => {
     return <>{error && coinsList.length >= 100 && <div>End of list</div>}</>;
   };
 
+  const changeSelectedCurrency = useMemo(
+    () => (value: Option[]) => setSelectedCurrency(value),
+    []
+  );
   if (
     coinsList.length !== 0 &&
     dailyMarketChange !== null &&
@@ -287,11 +297,11 @@ const Market = () => {
           capChangePercentage={dailyMarketChange}
           supportedCurrency={currencyList}
           actualCurrencyValue={selectedCurrency}
-          onClick={(value) => setSelectedCurrency(value)}
+          onClick={changeSelectedCurrency}
         />
         <ChooseSortTypeBar
-          onClick={async (sortType: SetStateAction<string>) =>
-            await setSortCondition(sortType)
+          onClick={(sortType: SetStateAction<string>) =>
+            setSortCondition(sortType)
           }
           actualSortType={sortCondition}
         />

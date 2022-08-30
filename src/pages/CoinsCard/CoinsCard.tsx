@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import Card from "@components/Card";
+import ROUTES from "@config/routes";
 import CoinsGraph from "@pages/CoinsCard/components/CoinsGraph";
+import PeriodBar from "@pages/CoinsCard/components/PeriodBar";
 import axios from "axios";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import styles from "./CoinsCard.module.scss";
 
@@ -11,60 +13,21 @@ const CoinsCard = () => {
   const { state } = useLocation();
   // @ts-ignore
   const { location, currency } = state;
+  const { id } = useParams();
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
   const [coinMainData, setCoinMainData] = useState();
-  const [timing, setTiming] = useState(7);
-  const [graphValue, setGraphValue] = useState<Object[]>([]);
+  const [actualDatePeriod, setActualDatePeriod] = useState(1);
 
   const navigate = useNavigate();
 
   const handleReturnNavigate = () => {
-    navigate("/");
+    navigate(ROUTES.MARKET);
   };
 
-  // const getSparklineData = async () => {
-  //   const prepareData = (data: any[]) => {
-  //     if (timing === 7) {
-  //       const date = new Date(Date.prototype.getDate() - 7);
-  //
-  //       const resulData: Object[] = [];
-  //
-  //       data.forEach((el) => {
-  //         resulData.push({ value: el[0], time: date.toString() });
-  //         date.setTime(date.getTime() + 4 * 60 * 60 * 1000);
-  //       });
-  //
-  //       return resulData;
-  //     }
-  //     return [];
-  //   };
-  //
-  //   setLoading(true);
-  //   const path = window.location.pathname.split("/");
-  //
-  //   const result = await axios.get(
-  //     `https://api.coingecko.com/api/v3/coins/${
-  //       path[path.length - 1]
-  //     }?localization=false&tickers=false&market_data=true&community_data=false&developer_data=true`
-  //   );
-  //
-  //   try {
-  //     const status = result.status;
-  //     const data = result.data;
-  //     if (status !== 200 || Object.keys(data).length === 0) {
-  //       setError(true);
-  //     } else {
-  //       setGraphValue(prepareData(data));
-  //     }
-  //   } catch (err) {
-  //     setError(true);
-  //   }
-  //   setLoading(false);
-  // };
-
   useEffect(() => {
-    const getCoinInformation = async (id: string) => {
+    const getCoinInformation = async () => {
+      setLoading(true);
       const result = await axios.get(
         `https://api.coingecko.com/api/v3/coins/${id}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=true`
       );
@@ -83,16 +46,22 @@ const CoinsCard = () => {
       return null;
     };
 
-    const path = window.location.pathname.split("/");
-    getCoinInformation(path[path.length - 1]).then((value) => {
+    getCoinInformation().then((value) => {
       if (value !== null) {
         setCoinMainData(value);
         // eslint-disable-next-line no-console
-        console.log(value);
+        // console.log(value);
       }
     });
     // .then(() => getSparklineData());
   }, []);
+
+  const changeActualDatePeriod = useCallback(
+    (newPeriod: number) => {
+      setActualDatePeriod(newPeriod);
+    },
+    [actualDatePeriod]
+  );
 
   if (!error && coinMainData)
     return (
@@ -147,14 +116,15 @@ const CoinsCard = () => {
           </span>
         </div>
         <div className={styles["CoinsCard__main-block__graph"]}>
-          {/*<CoinsGraph*/}
-          {/*  priceChangePercentage={*/}
-          {/*    coinMainData["market_data"]["price_change_percentage_24h"]*/}
-          {/*  }*/}
-          {/*  sparklineData={graphValue}*/}
-          {/*/>*/}
+          <CoinsGraph
+            id={`${id}`}
+            currency={currency[0]["key"]}
+            timing={actualDatePeriod}
+          />
         </div>
-        <div className={styles["CoinsCard__main-block__choose-period"]}></div>
+        <div className={styles["CoinsCard__main-block__choose-period"]}>
+          <PeriodBar onChange={changeActualDatePeriod} />
+        </div>
         <div className={styles["CoinsCard__main-block__card"]}>
           <Card
             image={coinMainData["image"]["small"]}

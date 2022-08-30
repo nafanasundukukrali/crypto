@@ -1,5 +1,6 @@
 @import "@styles/colors.scss";
 @import "@styles/variables.scss";
+@import "@styles/mixin.scss";
 
 .MarketHeader__main-block {
   position: relative;
@@ -17,12 +18,7 @@
     grid-area: A;
 
     .MarketHeader__market-status__header {
-      font-weight: 500;
-      font-size: x-large !important;
-
-      @media (max-width: $screenIpadMini) {
-        font-size: large !important;
-      }
+      @include type-font-baseTitle($screenIpadMini);
 
 
       .MarketHeader__market-status__header__span_green {
@@ -66,10 +62,6 @@
     display: flex;
     flex-direction: column;
     align-items: end;
-    //justify-content: end !important;
-
-    @media (min-width: $screenIpadMini) {;
-    }
   }
 }
 

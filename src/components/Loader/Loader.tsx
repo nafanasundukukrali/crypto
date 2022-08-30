@@ -1,35 +1,30 @@
-import "./Loader.css";
 import React from "react";
 
+import cn from "classnames";
+
+import "./Loader.css";
+
 /** Возможные значения размера лоадера */
-export enum LoaderSize {
+enum LoaderSize {
   s = "s",
   m = "m",
   l = "l",
 }
 
 /** Пропсы, которые принимает компонент Loader */
-export type LoaderProps = {
+type LoaderProps = {
   loading?: boolean;
   size?: LoaderSize;
   className?: string;
 };
 
-export const Loader: React.FC<LoaderProps> = ({
+const Loader: React.FC<LoaderProps> = ({
   loading = true,
   size = LoaderSize.m,
   className,
 }) => {
-  const classNames = require("classnames");
-
   return loading ? (
-    <div
-      className={classNames(
-        `loader_size-${size}`,
-        className,
-        "loader_position"
-      )}
-    >
+    <div className={cn(`loader_size-${size}`, className, "loader_position")}>
       <svg
         className="loader__svg_animation"
         version="1.1"
@@ -52,3 +47,5 @@ export const Loader: React.FC<LoaderProps> = ({
     </div>
   ) : null;
 };
+
+export default Loader;

@@ -1,3 +1,6 @@
+@import "variables.scss";
+@import "colors.scss";
+
 @mixin flexboxWithCenterColumnContent() {
   display: flex;
   flex-direction: column;
@@ -27,16 +30,24 @@
   }
 }
 
-@mixin baseTitleFont ($screen) {
-  font-weight: 500;
-  font-size: x-large !important;
+@mixin inlineFlexbox() {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+}
+// Шрифты
 
-  @media (max-width: $screen) {
-    font-size: large !important;
+@mixin type-font-clickOption() {
+  color: $secondFontColor;
+  font-size: $clickOptionFontSize;
+
+  @media (max-width: $screenIpadMini) {
+    font-size: $screenIpadMiniClickOptionFontSize;
   }
 }
 
-@mixin baseSubtitleFont ($screen) {
+@mixin type-font-baseSubtitle($screen) {
   font-size: 0.7rem !important;
   color: #6C757D;
 
@@ -45,9 +56,21 @@
   }
 }
 
-@mixin inlineFlexbox() {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: end;
+@mixin type-font-baseTitle($screen) {
+  font-weight: 500;
+  font-size: x-large !important;
+
+  @media (max-width: $screen) {
+    font-size: large !important;
+  }
+}
+
+@mixin type-font-chooseSort($screen) {
+  color: $secondFontColor;
+  font-weight: 500;
+  font-size: 1.1rem;
+
+  @media (max-width: $screenIpadMini) {
+    font-size: 0.9rem;
+  }
 }

@@ -1,5 +1,6 @@
 @import "@styles/colors.scss";
 @import "@styles/variables.scss";
+@import "@styles/mixin.scss";
 
 .ChooseSortTypeBar__ul {
   position: relative;
@@ -11,14 +12,8 @@
 }
 
 .ChooseSortTypeBar__link {
-  color: $secondFontColor;
-  font-weight: 500;
+  @include type-font-chooseSort($screenIpadMini);
   padding-right: 0.9rem;
-  font-size: 1.1rem;
-
-  @media (max-width: $screenIpadMini) {
-    font-size: 0.9rem;
-  }
 
   &:before {
     width: 30px;

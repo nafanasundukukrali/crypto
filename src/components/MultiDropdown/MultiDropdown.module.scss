@@ -2,26 +2,15 @@
 @import "@styles/mixin.scss";
 @import "@styles/colors.scss";
 
-$multidropdownFontSize: 1rem;
-$screenIpadMiniMultidropdownFontSize: 0.65rem;
-
 .multiDropdown__block {
     width: min-content;
     display: flex;
     flex-direction: column;
-
-    & {
-        font-size: $multidropdownFontSize;
-
-        @media (max-width: $screenIpadMini) {
-            font-size: $screenIpadMiniMultidropdownFontSize;
-        }
-    }
 }
 
 .multiDropdown__block__mainClickButton {
-    @include oneOptionIntoMultidropdown($multidropdownFontSize, $multidropdownFontSize * 15);
-    @include  oneOptionIntoMiltidropdownFontSettings($screenIpadMini, $screenIpadMiniMultidropdownFontSize, $screenIpadMiniMultidropdownFontSize * 11);
+    @include oneOptionIntoMultidropdown($clickOptionFontSize, $clickOptionFontSize * 15);
+    @include  oneOptionIntoMiltidropdownFontSettings($screenIpadMini, $screenIpadMiniClickOptionFontSize, $screenIpadMiniClickOptionFontSize * 11);
     border-radius: 30px;
 }
 
@@ -33,18 +22,18 @@ $screenIpadMiniMultidropdownFontSize: 0.65rem;
 }
 
 .multiDropdown__block__mainClickButton__content {
+    @include type-font-clickOption();
     grid-column: 1 / 9;
     position: relative;
     display: block;
     height: 100%;
-    color: $secondFontColor;
 }
 
 .multiDropdown__block__mainClickButton__icon{
     position: relative;
-    height: $multidropdownFontSize;
+    height: $clickOptionFontSize;
     width: 100%;
-    background-size: $multidropdownFontSize;
+    background-size: $clickOptionFontSize;
     background: url('./components/images/list_triangle.svg') no-repeat right;
     grid-column: 9 / 12;
 }
@@ -59,18 +48,18 @@ $screenIpadMiniMultidropdownFontSize: 0.65rem;
 }
 
 .multiDropdown__block__optionsList__option {
-    @include oneOptionIntoMultidropdown($multidropdownFontSize, $multidropdownFontSize * 15);
-    @include  oneOptionIntoMiltidropdownFontSettings($screenIpadMini, $screenIpadMiniMultidropdownFontSize, $screenIpadMiniMultidropdownFontSize * 11);
+    @include oneOptionIntoMultidropdown($clickOptionFontSize, $clickOptionFontSize * 15);
+    @include  oneOptionIntoMiltidropdownFontSettings($screenIpadMini, $screenIpadMiniClickOptionFontSize, $screenIpadMiniClickOptionFontSize * 11);
     box-sizing: border-box;
 
     div {
+        @include type-font-clickOption();
         grid-column: 1 / 9;
         position: relative;
         text-align: center;
         display: block;
         width: 100%;
         height: 100%;
-        color: $secondFontColor;
     }
 }
 

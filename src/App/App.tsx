@@ -16,7 +16,7 @@ function App() {
           <Route path={ROUTES.MARKET} element={<Market />} />
           <Route path={ROUTES.SEARCH} element={<Search />} />
           <Route path={ROUTES.COINS_CARD} element={<CoinsCard />} />
-          <Route path="*" element={<Navigate to="/" />} />
+          <Route path="*" element={<Navigate to={ROUTES.MARKET} />} />
         </Routes>
       </BrowserRouter>
     </div>
