@@ -1,0 +1,110 @@
+@import "@styles/colors.scss";
+@import "@styles/variables.scss";
+@import "@styles/mixin.scss";
+
+$baseFontSize: 1.5rem;
+$smallFontSize: 0.9rem;
+
+body {
+  background: $secondBackgroundColor !important;
+}
+.CoinsCard__main-block {
+  position: relative;
+  width: 90%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: $secondBackgroundColor;
+
+  @media (max-width: $screenIpadMini) {
+    width: 100%;
+    height: 100%;
+  }
+
+}
+
+.CoinsCard__main-block__header {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: start;
+  padding: $smallFontSize * 0.5;
+  margin: $smallFontSize * 0.5;
+}
+
+.CoinsCard__main-block__header__return-button {
+  width: $baseFontSize;
+  height: $baseFontSize;
+  background: $secondBackgroundColor url("components/images/backImage.svg") no-repeat center;
+  background-size: $baseFontSize;
+  border: none;
+  margin-right: $baseFontSize * 0.5;
+  margin-left: $baseFontSize * 0.3;
+
+  @media (max-width: $screenIpadMini) {
+    width: $smallFontSize;
+    height: $smallFontSize;
+    background-size: $smallFontSize;
+  }
+}
+
+.CoinsCard__main-block__header__coin-attributes {
+  @include  inlineFlexbox;
+
+  img {
+    display: block;
+    height: $baseFontSize * 1.1;
+    margin-left: $baseFontSize * 0.3;
+    padding-right: $baseFontSize * 0.3;
+  }
+  span:first-of-type {
+    @include type-font-baseTitle($screenIpadMini);
+    margin-right: $baseFontSize * 0.1;
+  }
+  span:last-of-type {
+    display: inline-block;
+    box-sizing: border-box;
+    @include type-font-baseSubtitle($screenIpadMini);
+  }
+}
+
+.CoinsCard__main-block__graph-header {
+  //margin-top: $baseFontSize * 0.5;
+  width: 100%;
+  @include inlineFlexbox;
+  justify-content: left;
+  padding: $smallFontSize * 0.5;
+  margin: $smallFontSize * 0.5;
+
+  span:first-of-type {
+    @include type-font-baseTitle($screenIpadMini);
+    display: inline-block;
+    margin-left: $baseFontSize * 0.3;
+    margin-right: $baseFontSize * 0.3;
+    font-size: $baseFontSize;
+    vertical-align: bottom;
+  }
+
+  span:not(:first-of-type) {
+    text-align: center;
+    @include type-font-baseSubtitle($screenIpadMini);
+    height: 100%;
+    vertical-align: center;
+    align-items: center;
+  }
+}
+
+.CoinsCard__main-block__graph {
+  width: 100%;
+  height: 40vh;
+}
+
+.CoinsCard__main-block__choose-period {
+  box-sizing: border-box;
+  width: 100%;
+  height: fit-content;
+}

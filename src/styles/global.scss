@@ -1,0 +1,24 @@
+@import "@styles/mixin.scss";
+@import "@styles/colors.scss";
+
+@font-face {
+  font-family: 'Manrope';
+  src: local('Manrope'), url("../fonts/Manrope/Manrope-VariableFont_wght.ttf") format('truetype');
+}
+
+* {
+  font-family: 'Manrope', serif;
+  font-weight: 450;
+}
+
+#root {
+  @include flexboxWithCenterColumnContent;
+  width: 100%;
+  background: $mainBackgroundColor;
+}
+
+body {
+  margin: 0;
+  width: 100%;
+  background: $mainBackgroundColor;
+}

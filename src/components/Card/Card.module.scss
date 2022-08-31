@@ -1,0 +1,81 @@
+@import "@styles/colors.scss";
+@import "@styles/variables.scss";
+@import "@styles/mixin.scss";
+
+//* {
+//    font-size: 1rem;
+//}
+.card {
+    position: relative;
+    width: 90%;
+    display: grid;
+    height: min-content;
+    box-sizing: border-box;
+    background: white;
+    border-radius: 7px;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(9, 1fr);
+    -webkit-box-shadow: 0px 0px 8px 0px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 0px 0px 8px 0px rgba(34, 60, 80, 0.2);
+    box-shadow: 0px 0px 8px 0px rgba(34, 60, 80, 0.2);
+    grid-template-areas:
+    "A A B B D D D"
+    "A A C C D D D";
+    justify-items: left;
+    align-items: center;
+    margin: 10px;
+    padding: 20px;
+
+    @media (max-width: $screenIpadMini) {
+        margin: 4px;
+        padding: 8px !important;
+    }
+}
+
+.card__mainImg {
+    display: block;
+    position: relative;
+    grid-area: A;
+    width: auto;
+    height: 2.5rem;
+    margin: 5px;
+
+    @media (min-width: $screenIpadMini) {
+        height: 5rem;
+    }
+}
+
+.card__title {
+    display: inline-block;
+    position: relative;
+    grid-area: B;
+    font-size: 0.8rem !important;
+    font-weight: 500;
+
+    @media (min-width: $screenIpadMini) {
+        font-size: 1.5rem !important;
+    }
+}
+.card__subtitle {
+    display: inline-block;
+    position: relative;
+    grid-area: C;
+    font-size: 0.7rem !important;
+    color: #6C757D;
+
+    @media (min-width: $screenIpadMini) {
+        font-size: 1rem !important;
+    }
+}
+
+.card__userContent {
+    grid-area: D;
+    width: 100%;
+    height: 100%;
+    display: flex;
+
+    div {
+        width: 100%;
+        position: relative;
+    }
+}

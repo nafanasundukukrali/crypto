@@ -1,0 +1,11 @@
+@import "@styles/colors.scss";
+
+:export {
+  blue: $blueColor;
+}
+
+.CoinGraph {
+  position: relative;
+  width: 100%;
+  height: 90%;
+}

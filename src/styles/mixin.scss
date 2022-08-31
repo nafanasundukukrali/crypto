@@ -1,0 +1,76 @@
+@import "variables.scss";
+@import "colors.scss";
+
+@mixin flexboxWithCenterColumnContent() {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin oneOptionIntoMultidropdown ($value, $width) {
+  padding: $value 5% $value 5%;
+  border: 0.5px solid #DFE2E4;
+  background: #F8F9FA;
+  font-size: $value;
+  color: #6C757D;
+  position: relative;
+  width: $width;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: 1fr;
+  justify-items: center;
+}
+
+@mixin oneOptionIntoMiltidropdownFontSettings ($screen, $value, $width) {
+  @media (max-width: $screen) {
+    font-size: $value !important;
+    padding: $value;
+    width: $width;
+  }
+}
+
+@mixin inlineFlexbox() {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+}
+// Шрифты
+
+@mixin type-font-clickOption() {
+  color: $secondFontColor;
+  font-size: $clickOptionFontSize;
+
+  @media (max-width: $screenIpadMini) {
+    font-size: $screenIpadMiniClickOptionFontSize;
+  }
+}
+
+@mixin type-font-baseSubtitle($screen) {
+  font-size: 0.7rem !important;
+  color: #6C757D;
+
+  @media (min-width: $screen) {
+    font-size: 1rem !important;
+  }
+}
+
+@mixin type-font-baseTitle($screen) {
+  font-weight: 500;
+  font-size: x-large !important;
+
+  @media (max-width: $screen) {
+    font-size: large !important;
+  }
+}
+
+@mixin type-font-chooseSort($screen) {
+  color: $secondFontColor;
+  font-weight: 500;
+  font-size: 1.1rem;
+
+  @media (max-width: $screenIpadMini) {
+    font-size: 0.9rem;
+  }
+}

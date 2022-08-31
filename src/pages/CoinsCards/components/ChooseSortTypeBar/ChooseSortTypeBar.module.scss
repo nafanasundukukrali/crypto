@@ -1,0 +1,28 @@
+@import "@styles/colors.scss";
+@import "@styles/variables.scss";
+@import "@styles/mixin.scss";
+
+.ChooseSortTypeBar__ul {
+  position: relative;
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  border-bottom: 2px solid $greyBorderColor;
+  list-style-type: none;
+}
+
+.ChooseSortTypeBar__link {
+  @include type-font-chooseSort($screenIpadMini);
+  padding-right: 0.9rem;
+
+  &:before {
+    width: 30px;
+    height: 100%;
+    color: #D90429;
+  }
+}
+
+.active a {
+  color: $thirdFontColor;
+  border-bottom: 2px solid $thirdFontColor;
+}
