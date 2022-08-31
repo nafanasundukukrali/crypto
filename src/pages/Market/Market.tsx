@@ -12,9 +12,9 @@ import ErrorReadDataMessage from "@components/ErrorReadDataMessage";
 import Loader from "@components/Loader";
 import { Option } from "@components/MultiDropdown/MultiDropdown";
 import ROUTES from "@config/routes";
-import ChooseSortTypeBar from "@pages/CoinsCards/components/ChooseSortTypeBar";
-import CoinSmallGraph from "@pages/CoinsCards/components/CoinSmallGraph";
-import MarketHeader from "@pages/CoinsCards/components/MarketHeader";
+import ChooseSortTypeBar from "@pages/Market/components/ChooseSortTypeBar";
+import CoinSmallGraph from "@pages/Market/components/CoinSmallGraph";
+import MarketHeader from "@pages/Market/components/MarketHeader";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
