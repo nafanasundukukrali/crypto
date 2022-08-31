@@ -2,7 +2,7 @@ import React from "react";
 
 import ROUTES from "@config/routes";
 import CoinsCard from "@pages/CoinsCard";
-import Market from "@pages/CoinsCards";
+import Market from "@pages/Market";
 import Search from "@pages/Search";
 import { BrowserRouter, Routes, Navigate, Route } from "react-router-dom";
 
