@@ -1,24 +1,49 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
+// @ts-ignore
+import search_icon from "@components/images/search_icon.svg";
 import MultiDropdown from "@components/MultiDropdown/MultiDropdown";
 import { Option } from "@components/MultiDropdown/MultiDropdown";
+import ROUTES from "@config/routes";
+import { useCurrencyParamStore } from "@store/RootStore/hooks/useCurrencyParamStore";
 import cn from "classnames";
+import { useNavigate } from "react-router-dom";
 
 import style from "./MarketHeader.module.scss";
 
 type MarketHeaderProps = {
   capChangePercentage: number;
-  supportedCurrency: Option[];
-  actualCurrencyValue: Option[];
-  onClick: (value: Option[]) => void;
 };
 
-const MarketHeader: React.FC<MarketHeaderProps> = ({
-  capChangePercentage,
-  supportedCurrency,
-  actualCurrencyValue,
-  onClick,
-}) => {
+const MarketHeader: React.FC<MarketHeaderProps> = ({ capChangePercentage }) => {
+  // Для перехода на страницу с монетой
+  const navigate = useNavigate();
+
+  const handleCurrency = useCurrencyParamStore();
+
+  const handleSearchNavigate = useCallback(() => {
+    navigate(ROUTES.SEARCH, { state: { location: ROUTES.MARKET } });
+  }, [navigate]);
+
+  const handleSelectedCurrency = useCallback(
+    (value: Option[]) => {
+      handleCurrency.selectedCurrencyList = value;
+    },
+    [handleCurrency]
+    // [onClick]
+  );
+
+  const handleValueResult = useCallback(
+    (value: Option[]) => {
+      let resultString = "";
+      value.forEach((el) => {
+        if (el) resultString += el.value + " ";
+      });
+      return resultString;
+    },
+    [handleCurrency.selectedCurrencyList]
+  );
+
   // eslint-disable-next-line no-console
   // console.log("Market had been Rendered!");
   return (
@@ -38,20 +63,16 @@ const MarketHeader: React.FC<MarketHeaderProps> = ({
         </div>
         <span>In the past 24 hours</span>
       </div>
-      <div className={style["MarketHeader__search-item"]}></div>
+      <div className={style["MarketHeader__search-item"]}>
+        <img src={search_icon} onClick={handleSearchNavigate} />
+      </div>
       <div className={style["MarketHeader__coins-item"]}>Coins</div>
       <div className={style["MarketHeader__currency-dropdown"]}>
         <MultiDropdown
-          options={supportedCurrency}
-          value={actualCurrencyValue}
-          onChange={onClick}
-          pluralizeOptions={(value) => {
-            let resultString = "";
-            value.forEach((el) => {
-              if (el) resultString += el.value + " ";
-            });
-            return resultString;
-          }}
+          options={handleCurrency.currencyList}
+          value={handleCurrency.selectedCurrencyList}
+          onChange={handleSelectedCurrency}
+          pluralizeOptions={handleValueResult}
         />
       </div>
     </div>

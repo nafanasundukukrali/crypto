@@ -3,7 +3,7 @@ import React, { useMemo } from "react";
 import cn from "classnames";
 
 import Loader from "../Loader";
-import "./Button.css";
+import styles from "./Button.module.scss";
 
 /** Возможные раскраски кнопки */
 enum ButtonColor {
@@ -35,9 +35,9 @@ const Button: React.FC<ButtonProps> = ({
   let resultClassNameList = useMemo(
     () =>
       cn(
-        "button",
-        loading || props["disabled"] ? "button_disabled" : null,
-        `button_color-${color}`,
+        styles["button"],
+        loading || props["disabled"] ? styles["button_disabled"] : null,
+        styles[`button_color-${color}`],
         props["className"]
       ),
     [loading, props, color]

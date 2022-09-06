@@ -1,0 +1,51 @@
+@import "@styles/colors.scss";
+@import "@styles/mixin.scss";
+@import "@styles/variables.scss";
+
+.button {
+    @include type-font-baseSubtitle($screenIpadMini);
+    position: relative;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 4px;
+
+    height: 2.0rem;
+    margin-top: 0.1rem;
+    margin-bottom: 0.1rem;
+    padding: 0.2rem 8% 0.2rem 8%;
+
+    @media (min-width: $screenIpadMini) {
+        height: 3.0rem !important;
+        padding: 0.2rem 8% 0.2rem 8%;
+    }
+}
+
+.button:hover {
+    transition: 0.4s linear;
+}
+
+.button:not(:hover) {
+    transition: 0.4s linear;
+}
+
+.button_color-primary {
+    background-color: inherit;
+    color: $secondFontColor;
+}
+
+.button_color-secondary {
+    background-color: $secondBackgroundColor;
+    color: $secondBackgroundColor;
+}
+
+
+.button:hover {
+    color: $secondBackgroundColor;
+    background-color: $redColor;
+}
+
+.button:focus {
+    color: $secondBackgroundColor;
+    background-color: $redColor;
+    text-decoration: underline;
+}
