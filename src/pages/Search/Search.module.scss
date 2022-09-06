@@ -1,0 +1,34 @@
+.Search__main-div {
+  width: 90%;
+  height: 100%;
+
+  .Search__search-input {
+    height: 1em;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-areas:
+    "A A A A B B";
+    padding: 10px;
+    margin-bottom: 20px;
+
+    Input {
+      grid-area: A;
+      position: relative;
+    }
+
+    Button {
+      grid-area: B;
+      width: 100%;
+    }
+  }
+}
+
+.Search__main-div_CardList-block {
+  position: relative;
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+}

@@ -1,55 +1,63 @@
-import React, { SetStateAction, useEffect, useRef, useState } from "react";
+import React, {
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 import styles from "./ChooseSortTypeBar.module.scss";
 
 type ChooseSortTypeBarProps = {
-  onClick: (sortType: SetStateAction<string>) => void;
-  actualSortType: string;
+  onClick: (sortType: string) => void;
 };
 
-const ChooseSortTypeBar: React.FC<ChooseSortTypeBarProps> = ({
-  onClick,
-  actualSortType,
-}) => {
+const ChooseSortTypeBar: React.FC<ChooseSortTypeBarProps> = ({ onClick }) => {
+  const [activeSortType, setSortType] = useState("market_cap_desc");
+
+  const handleSortType = useCallback(
+    (value: string) => {
+      setSortType(value);
+      onClick(value);
+    },
+    [onClick]
+  );
+
   return (
     <ul className={styles["ChooseSortTypeBar__ul"]}>
       <li
         className={`${styles["ChooseSortTypeBar__link"]} ${
-          actualSortType === "market_cap_desc" ? styles["active"] : null
+          activeSortType === "market_cap_desc" ? styles["active"] : null
         }`}
-        onClick={() => {
-          onClick("market_cap_desc");
-        }}
+        onClick={() => handleSortType("market_cap_desc")}
       >
         <a>All</a>
       </li>
       <li
         className={`${styles["ChooseSortTypeBar__link"]} ${
-          actualSortType === "gecko_desc" ? styles["active"] : null
+          activeSortType === "gecko_desc" ? styles["active"] : null
         }`}
         onClick={() => {
-          onClick("gecko_desc");
+          handleSortType("gecko_desc");
         }}
       >
         <a>Gainer</a>
       </li>
       <li
         className={`${styles["ChooseSortTypeBar__link"]} ${
-          actualSortType === "gecko_asc" ? styles["active"] : null
+          activeSortType === "gecko_asc" ? styles["active"] : null
         }`}
         onClick={() => {
-          onClick("gecko_asc");
+          handleSortType("gecko_asc");
         }}
       >
         <a>Looser</a>
       </li>
-      <li className={styles["ChooseSortTypeBar__link"]} onClick={() => {}}>
+      <li className={styles["ChooseSortTypeBar__link"]}>
         <a>Favourites</a>
       </li>
     </ul>
   );
 };
 
-export default React.memo(ChooseSortTypeBar, (prevProps, nextProps) => {
-  return prevProps.onClick === nextProps.onClick;
-});
+export default ChooseSortTypeBar;
