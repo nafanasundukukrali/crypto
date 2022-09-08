@@ -1,6 +1,7 @@
-import React, { useCallback, useState } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 
 import MultiDropdownButton from "@components/MultiDropdown/components/MultiDropdownButton";
+import rootStore from "@store/RootStore";
 
 import styles from "./MultiDropdown.module.scss";
 
@@ -33,7 +34,6 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
   pluralizeOptions,
 }) => {
   const [isVisible, setVisible] = useState(false);
-  const [actualValue, setActualValue] = useState<Option[]>(value);
 
   const handleValueList = useCallback(
     (el: Option) => {
@@ -45,21 +45,20 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
           ...value.slice(value.indexOf(el) + 1),
         ];
       }
-      setActualValue(value);
       onChange(value);
     },
     [value]
   );
 
   const handleVisible = useCallback(
-    () => setVisible(() => !isVisible),
-    [isVisible]
+    () => setVisible((isVisible) => !isVisible),
+    []
   );
 
   return (
     <div key="multiDropdown__block" className={"multiDropdown__block"}>
       <MultiDropdownButton
-        value={actualValue}
+        value={value}
         isVisible={isVisible}
         onClick={handleVisible}
         pluralizeOptions={pluralizeOptions}
@@ -84,4 +83,4 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
   );
 };
 
-export default MultiDropdown;
+export default memo(MultiDropdown);

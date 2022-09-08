@@ -2242,6 +2242,18 @@
     "@typescript-eslint/types" "5.34.0"
     "eslint-visitor-keys" "^3.3.0"
 
+"@virtuoso.dev/react-urx@^0.2.12":
+  "integrity" "sha512-MY0ugBDjFb5Xt8v2HY7MKcRGqw/3gTpMlLXId2EwQvYJoC8sP7nnXjAxcBtTB50KTZhO0SbzsFimaZ7pSdApwA=="
+  "resolved" "https://registry.npmjs.org/@virtuoso.dev/react-urx/-/react-urx-0.2.13.tgz"
+  "version" "0.2.13"
+  dependencies:
+    "@virtuoso.dev/urx" "^0.2.13"
+
+"@virtuoso.dev/urx@^0.2.12", "@virtuoso.dev/urx@^0.2.13":
+  "integrity" "sha512-iirJNv92A1ZWxoOHHDYW/1KPoi83939o83iUBQHIim0i3tMeSKEh+bxhJdTHQ86Mr4uXx9xGUTq69cp52ZP8Xw=="
+  "resolved" "https://registry.npmjs.org/@virtuoso.dev/urx/-/urx-0.2.13.tgz"
+  "version" "0.2.13"
+
 "@webassemblyjs/ast@1.11.1":
   "integrity" "sha512-ukBh14qFLjxTQNTXocdyksN5QdM28S1CxHt2rdskFyL+xFV7VremuBLVbmCePj+URalXBENx/9Lm7lnhihtCSw=="
   "resolved" "https://registry.npmjs.org/@webassemblyjs/ast/-/ast-1.11.1.tgz"
@@ -8137,7 +8149,7 @@
     "strip-ansi" "^6.0.1"
     "text-table" "^0.2.0"
 
-"react-dom@^18.0.0", "react-dom@^18.2.0", "react-dom@>= 16.8.0", "react-dom@>=16.8":
+"react-dom@^18.0.0", "react-dom@^18.2.0", "react-dom@>= 16.8.0", "react-dom@>=16 || >=17 || >= 18", "react-dom@>=16.8":
   "integrity" "sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g=="
   "resolved" "https://registry.npmjs.org/react-dom/-/react-dom-18.2.0.tgz"
   "version" "18.2.0"
@@ -8245,7 +8257,15 @@
   optionalDependencies:
     "fsevents" "^2.3.2"
 
-"react@^16.8.0 || ^17 || ^18", "react@^18.0.0", "react@^18.2.0", "react@>= 16", "react@>= 16.8.0", "react@>=16.8":
+"react-virtuoso@^2.18.0":
+  "integrity" "sha512-BxMW9as2dPOP4YFkry/oNjQMEn3cOgEjHLb7Fg8oubOgRAfiukp1Co41QFD9ZMXZBNBZNTI2E5BwC5pol31mTg=="
+  "resolved" "https://registry.npmjs.org/react-virtuoso/-/react-virtuoso-2.18.0.tgz"
+  "version" "2.18.0"
+  dependencies:
+    "@virtuoso.dev/react-urx" "^0.2.12"
+    "@virtuoso.dev/urx" "^0.2.12"
+
+"react@^16.8.0 || ^17 || ^18", "react@^18.0.0", "react@^18.2.0", "react@>= 16", "react@>= 16.8.0", "react@>=16", "react@>=16 || >=17 || >= 18", "react@>=16.8":
   "integrity" "sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ=="
   "resolved" "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   "version" "18.2.0"

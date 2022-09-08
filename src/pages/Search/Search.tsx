@@ -45,7 +45,7 @@ const Search = () => {
         <Button onClick={handleCancelButton}>Cancel</Button>
       </div>
       <div className={styles["Search__main-div_CardList-block"]}>
-        <CardsList searchRequest={true} />
+        <CardsList />
       </div>
     </div>
   );

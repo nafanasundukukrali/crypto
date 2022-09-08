@@ -1,19 +1,36 @@
 import { Option } from "@components/MultiDropdown/MultiDropdown";
 import axios from "axios";
-import { action, makeObservable, observable, runInAction } from "mobx";
+import getSymbolFromCurrency from "currency-symbol-map";
+import {
+  action,
+  computed,
+  makeObservable,
+  observable,
+  runInAction,
+} from "mobx";
 
-type PrivateField = "_currencyList" | "_selectedCurrencyList";
+type PrivateField =
+  | "_currencyList"
+  | "_selectedCurrencyList"
+  | "_selectedCurrencySymbol"
+  | "_selectedSortType";
 
-export default class CurrencyParamsStore {
+export default class CurrencyAndSortTypeParamsStore {
   private _currencyList: Option[] = [];
   private _selectedCurrencyList: Option[] = [];
+  private _selectedCurrencySymbol: string | undefined = "";
+  private _selectedSortType: string = "market_cap_desc";
 
   constructor() {
-    makeObservable<CurrencyParamsStore, PrivateField>(this, {
+    makeObservable<CurrencyAndSortTypeParamsStore, PrivateField>(this, {
       _currencyList: observable.ref,
       _selectedCurrencyList: observable.ref,
+      _selectedCurrencySymbol: observable,
+      _selectedSortType: observable,
       prepareCurrencyDate: action,
       getCurrencyList: action,
+      selectedSortType: computed,
+      selectedCurrencyList: computed,
     });
 
     runInAction(() => {
@@ -38,6 +55,10 @@ export default class CurrencyParamsStore {
         }
       });
     });
+  }
+
+  get selectedCurrencySymbol(): string {
+    return this._selectedCurrencySymbol ? this._selectedCurrencySymbol : "";
   }
 
   prepareCurrencyDate(userCurrencyList: string[]): Option[] {
@@ -68,19 +89,28 @@ export default class CurrencyParamsStore {
     return this._currencyList;
   }
 
+  get selectedSortType(): string {
+    return this._selectedSortType;
+  }
+
+  set selectedSortType(newSortType: string) {
+    this._selectedSortType = newSortType;
+  }
+
   get selectedCurrencyList(): Option[] {
     return this._selectedCurrencyList;
   }
 
   set selectedCurrencyList(newList: Option[]) {
-    runInAction(() => {
-      if (newList.length) {
-        this._selectedCurrencyList = newList;
-        localStorage.setItem(
-          "selectedCurrency",
-          JSON.stringify(this._selectedCurrencyList)
-        );
-      }
-    });
+    if (newList.length) {
+      this._selectedCurrencyList = newList;
+      this._selectedCurrencySymbol = getSymbolFromCurrency(
+        this._selectedCurrencyList[0]["key"]
+      );
+      localStorage.setItem(
+        "selectedCurrency",
+        JSON.stringify(this._selectedCurrencyList)
+      );
+    }
   }
 }

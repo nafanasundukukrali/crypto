@@ -29,17 +29,18 @@ const MarketHeader: React.FC<MarketHeaderProps> = ({ capChangePercentage }) => {
     (value: Option[]) => {
       handleCurrency.selectedCurrencyList = value;
     },
-    [handleCurrency]
+    [handleCurrency.selectedCurrencyList]
     // [onClick]
   );
 
   const handleValueResult = useCallback(
     (value: Option[]) => {
       let resultString = "";
-      value.forEach((el) => {
-        if (el) resultString += el.value + " ";
-      });
-      return resultString;
+      return value.reduce(
+        (accumulator: string, currentValue) =>
+          accumulator + currentValue.value + " ",
+        resultString
+      );
     },
     [handleCurrency.selectedCurrencyList]
   );
@@ -52,11 +53,13 @@ const MarketHeader: React.FC<MarketHeaderProps> = ({ capChangePercentage }) => {
         <div className={style["MarketHeader__market-status__header"]}>
           Market is {capChangePercentage >= 0 ? " up " : " down "}
           <span
-            className={cn(
-              capChangePercentage > 0
-                ? style["MarketHeader__market-status__header__span_green"]
-                : style["MarketHeader__market-status__header__span_red"]
-            )}
+            className={
+              style[
+                `MarketHeader__market-status__header__span_${
+                  capChangePercentage > 0 ? "green" : "red"
+                }`
+              ]
+            }
           >
             {capChangePercentage.toFixed(2)}
           </span>

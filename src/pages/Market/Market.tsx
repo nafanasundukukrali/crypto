@@ -1,78 +1,41 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useEffect } from "react";
 
 import CardsList from "@components/CardsList/CardsList";
+import ErrorReadDataMessage from "@components/ErrorReadDataMessage";
 import ChooseSortTypeBar from "@pages/Market/components/ChooseSortTypeBar";
 import MarketHeader from "@pages/Market/components/MarketHeader";
+import MarketStore from "@store/MarketStore";
+import rootStore from "@store/RootStore";
 import { useCurrencyParamStore } from "@store/RootStore/hooks/useCurrencyParamStore";
-import axios from "axios";
+import { useLocalStore } from "@utils/useLocalStore";
+import { observer } from "mobx-react-lite";
 
 import styles from "./Market.module.scss";
 
 const Market = () => {
-  // eslint-disable-next-line no-console
-  console.log("Market rendered!");
-
-  // Текущее состояние рынка (тот самый коэффициент за сутки)
-  const handleCurrencyStore = useCurrencyParamStore();
-  const [dailyMarketChange, setDailyMarketChange] = useState<number | null>(
-    null
-  );
-  // Ошибка прогрузки контента
-  const [error, setError] = useState(false);
-  // Выбранная сортировка монет
-  const [sortCondition, setSortCondition] = useState("market_cap_desc");
-
-  const getDailyMarketChange = useCallback(async () => {
-    const dailyMarketChange = await axios({
-      method: "get",
-      url: "https://api.coingecko.com/api/v3/global",
-    });
-
-    try {
-      const { status, data } = dailyMarketChange;
-
-      if (status === 200 && Object.keys(data).length)
-        setDailyMarketChange(
-          dailyMarketChange.data.data.market_cap_change_percentage_24h_usd
-        );
-      else setError(true);
-    } catch (e) {
-      setError(true);
-    }
-  }, []);
+  const currencyAndSortStore = useCurrencyParamStore();
+  const marketStore = useLocalStore(() => new MarketStore());
 
   // Статус состояния рынка и получение спсика валют
   useEffect(() => {
-    getDailyMarketChange();
-  }, [getDailyMarketChange]);
+    marketStore?.fetchData();
+  }, []);
 
-  // Непредвиденная пакость
-  const showError = () => {
-    return <>{error && <div>Something went wrong</div>}</>;
-  };
-
-  const handleSortType = useMemo(
-    // @ts-ignore
-    () => (sortType: string) => setSortCondition(sortType),
-    []
+  return (
+    <>
+      {marketStore?.dailyMarketChange !== null &&
+        currencyAndSortStore.currencyList.length !== 0 && (
+          <div className={styles["Market__main-div"]}>
+            <MarketHeader capChangePercentage={marketStore.dailyMarketChange} />
+            <ChooseSortTypeBar sortType={rootStore.currency.selectedSortType} />
+            <div className={styles["Market__CardsEvents"]}>
+              <CardsList />
+            </div>
+          </div>
+        )}
+      <ErrorReadDataMessage isVisible={marketStore?.error} />
+    </>
   );
-
-  if (
-    dailyMarketChange !== null &&
-    handleCurrencyStore.currencyList.length !== 0
-  ) {
-    return (
-      <div className={styles["Market__main-div"]}>
-        <MarketHeader capChangePercentage={dailyMarketChange} />
-        <ChooseSortTypeBar onClick={handleSortType} />
-        <div className={styles["Market__CardsEvents"]}>
-          <CardsList sortCondition={sortCondition} />
-        </div>
-      </div>
-    );
-  } else {
-    return <>{showError()}</>;
-  }
 };
 
-export default Market;
+export default observer(Market);

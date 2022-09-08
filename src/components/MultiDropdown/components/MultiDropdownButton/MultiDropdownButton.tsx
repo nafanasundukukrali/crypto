@@ -2,6 +2,7 @@ import React from "react";
 
 import { Option } from "@components/MultiDropdown/MultiDropdown";
 import styles from "@components/MultiDropdown/MultiDropdown.module.scss";
+import cn from "classnames";
 
 type MultiDropdownButtonProps = {
   value: Option[];
@@ -21,26 +22,21 @@ const MultiDropdownButton: React.FC<MultiDropdownButtonProps> = ({
   return (
     <button
       key="multiDropdown__block__mainClickButton"
-      className={`${styles["multiDropdown__block__mainClickButton"]} ${
-        isVisible
-          ? styles["multiDropdown__block__mainClickButton__clicked"]
-          : null
-      }`}
+      className={cn(
+        styles["multiDropdown__block__mainClickButton"],
+        isVisible && styles["multiDropdown__block__mainClickButton__clicked"]
+      )}
       onClick={onClick}
       disabled={disabled}
     >
-      <div
-        className={styles["multiDropdown__block__mainClickButton__content"]}
-        // @ts-ignore
-      >
+      <div className={styles["multiDropdown__block__mainClickButton__content"]}>
         {pluralizeOptions(value)}
       </div>
       <div
-        className={`${styles["multiDropdown__block__mainClickButton__icon"]} ${
-          isVisible
-            ? styles["multiDropdown__block__mainClickButton__icon_clicked"]
-            : null
-        }`}
+        className={cn(
+          styles["multiDropdown__block__mainClickButton__icon"],
+          isVisible && styles["multiDropdown__block__mainClickButton__clicked"]
+        )}
       ></div>
     </button>
   );

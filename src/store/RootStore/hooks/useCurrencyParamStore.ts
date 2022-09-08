@@ -1,6 +1,6 @@
 import rootStore from "@store/RootStore";
-import CurrencyParamsStore from "@store/RootStore/CurrencyParamsStore/CurrencyParamsStore";
+import CurrencyAndSortTypeParamsStore from "@store/RootStore/CurrencyParamsStore/CurrencyAndSortTypeParamsStore";
 
-export const useCurrencyParamStore = (): CurrencyParamsStore => {
+export const useCurrencyParamStore = (): CurrencyAndSortTypeParamsStore => {
   return rootStore.currency;
 };

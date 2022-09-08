@@ -19,11 +19,8 @@ const Input: React.FC<InputProps> = ({ value, onChange, ...props }) => {
     props["disabled"] ? "input_disabled" : null
   );
 
-  const [text, setValue] = React.useState(value);
-
   const changeValue = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
-      setValue(event.target.value);
       onChange(event.target.value);
     },
     [onChange]
@@ -32,7 +29,7 @@ const Input: React.FC<InputProps> = ({ value, onChange, ...props }) => {
   return (
     <input
       type="text"
-      value={text}
+      value={value}
       className={classNameList}
       {...props}
       onChange={changeValue}
