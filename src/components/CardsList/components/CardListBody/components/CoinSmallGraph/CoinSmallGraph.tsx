@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { createChart } from "lightweight-charts";
 
@@ -7,11 +7,15 @@ import styles from "./CoinSmallGraph.module.scss";
 type CoinSmallGraphProps = {
   priceChangePercentage: number;
   sparklineIn7d: number[];
+  currencySymbol: string | undefined;
+  price: number;
 };
 
 const CoinSmallGraph: React.FC<CoinSmallGraphProps> = ({
   priceChangePercentage,
   sparklineIn7d,
+  currencySymbol,
+  price,
 }) => {
   const chartContainerRef = useRef();
 
@@ -24,7 +28,7 @@ const CoinSmallGraph: React.FC<CoinSmallGraphProps> = ({
     });
     const lineSerial = chart.addLineSeries({
       lineWidth: 1,
-      color: priceChangePercentage <= 0 ? styles["red"] : styles["green"],
+      color: priceChangePercentage < 0 ? styles["red"] : styles["green"],
     });
     lineSerial.applyOptions({
       baseLineVisible: false,
@@ -53,8 +57,16 @@ const CoinSmallGraph: React.FC<CoinSmallGraphProps> = ({
     chart.timeScale().fitContent();
   }, []);
 
-  // @ts-ignore
-  return <div ref={chartContainerRef} className={styles["CoinSmallGraph"]} />;
+  return (
+    <div>
+      {
+        // @ts-ignore
+        <div ref={chartContainerRef} className={styles["CoinSmallGraph"]} />
+      }
+      {/*<div>{currencySymbol ? currencySymbol : "" + price}</div>*/}
+      {/*<div></div>*/}
+    </div>
+  );
 };
 
 export default CoinSmallGraph;

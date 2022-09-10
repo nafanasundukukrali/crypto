@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "experimentalDecorators": true,
     "target": "es5",
     "lib": [
       "dom",
@@ -13,7 +14,8 @@
       "@styles/*": ["src/styles/*"],
       "@utils/*": ["src/utils/*"],
       "@pages/*": ["src/pages/*"],
-      "@fonts/*": ["src/fonts/*"]
+      "@fonts/*": ["src/fonts/*"],
+      "@store/*": ["src/store/*"]
     },
     "allowJs": true,
     "skipLibCheck": true,
