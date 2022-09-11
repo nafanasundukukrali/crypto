@@ -3,6 +3,8 @@ const htmlWebpackPlugin = require("html-webpack-plugin");
 const miniCSSExtractPlugin = require("mini-css-extract-plugin");
 const reactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const reactRefreshBabel = require("react-refresh/babel");
+const tsCheckerPlugin = require("fork-ts-checker-webpack-plugin");
+
 const srcPath = path.resolve(__dirname, "src");
 
 const isProd = process.env.NODE_ENV === 'production';
@@ -27,10 +29,10 @@ const getConfigForStyles = (withModules = false) => {
 module.exports = {
   entry: path.join(srcPath, "index.tsx"), // имя файла бабла
   target: !isProd ? "web" : "browserslist",
-  // output: {
-  //   path: __dirname,
-  //   filename: "public.ts"
-  // },
+  output: {
+    path: __dirname,
+    filename: "bundle.js"
+  },
   plugins: [
   new htmlWebpackPlugin({
     template: path.join(srcPath, "index.html")
@@ -39,6 +41,7 @@ module.exports = {
       filename: "[name]-[hash].css",
     }),
     !isProd && new reactRefreshWebpackPlugin(),
+    new tsCheckerPlugin()
   ].filter(Boolean),
   module: {
     rules: [
@@ -70,6 +73,10 @@ module.exports = {
         }
       }
     ]
+  },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    alias:
   },
   devServer: {
     host: "127.0.0.1",

@@ -7,7 +7,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "NODE_ENV=development npx webpack serve --mode=development",
-    "build": "NODE_ENV=production npx webpack NODE_ENV --mode=production"
+    "build": "NODE_ENV=production npx webpack NODE_ENV --mode=production",
+    "ts-checker": "tsc --project tsconfig.json"
   },
   "private": false,
   "devDependencies": {
@@ -16,16 +17,21 @@
     "@babel/preset-env": "^7.19.0",
     "@babel/preset-typescript": "^7.18.6",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",
-    "@types/webpack-env": "^1.18.0",
+    "@types/react": "^18.0.19",
+    "@types/react-dom": "^18.0.6",
     "autoprefixer": "^10.4.8",
+    "axios": "^0.27.2",
     "babel-loader": "^8.2.5",
+    "classnames": "^2.3.1",
     "css-loader": "^6.7.1",
     "fork-ts-checker-webpack-plugin": "^7.2.13",
     "html-webpack-plugin": "^5.5.0",
+    "lightweight-charts": "^3.8.0",
     "mini-css-extract-plugin": "^2.6.1",
     "postcss-loader": "^7.0.1",
     "react-refresh": "^0.14.0",
     "react-refresh-typescript": "^2.0.7",
+    "react-router-dom": "^6.3.0",
     "sass": "^1.54.9",
     "sass-loader": "^13.0.2",
     "style-loader": "^3.3.1",
@@ -39,6 +45,8 @@
   ],
   "dependencies": {
     "@babel/preset-react": "^7.18.6",
+    "@types/webpack": "^5.28.0",
+    "@types/webpack-env": "^1.18.0",
     "react": "^18.2.0",
     "react-app-rewire-alias": "^1.1.7",
     "react-dom": "^18.2.0",
