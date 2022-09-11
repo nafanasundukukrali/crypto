@@ -1,8 +1,8 @@
 const path = require("path");
 const htmlWebpackPlugin = require("html-webpack-plugin");
 const miniCSSExtractPlugin = require("mini-css-extract-plugin");
-const reactRefreshWebpackPlugin = require("react-refresh-webpack-plugin");
-
+const reactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const reactRefreshBabel = require("react-refresh/babel");
 const srcPath = path.resolve(__dirname, "src");
 
 const isProd = process.env.NODE_ENV === 'production';
@@ -27,10 +27,10 @@ const getConfigForStyles = (withModules = false) => {
 module.exports = {
   entry: path.join(srcPath, "index.tsx"), // имя файла бабла
   target: !isProd ? "web" : "browserslist",
-  output: {
-    path: __dirname,
-    filename: "public.ts"
-  },
+  // output: {
+  //   path: __dirname,
+  //   filename: "public.ts"
+  // },
   plugins: [
   new htmlWebpackPlugin({
     template: path.join(srcPath, "index.html")
@@ -52,8 +52,13 @@ module.exports = {
         use: getConfigForStyles(false)
       },
       {
-        test: /\.tsx?$/,
-        use: "babel-loader"
+        test: /\.[jt]sx?$/,
+        use: [{
+          loader: "babel-loader",
+          options: {
+            plugins: [!isProd && reactRefreshBabel].filter(Boolean)
+          }
+        }]
       },
       {
         test: /\.{png|svg|jpg}$/,

@@ -4291,6 +4291,11 @@ raw-body@2.5.1:
     iconv-lite "0.4.24"
     unpipe "1.0.0"
 
+react-app-rewire-alias@^1.1.7:
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/react-app-rewire-alias/-/react-app-rewire-alias-1.1.7.tgz#c308a1cb5337cfdda92a60f6f157093c5237df5b"
+  integrity sha512-vn4xU3E/wzh2/fGxda9ZQ6CtW2XdZB/WxAgNOdNPyUcX3hA3mh+kCRGwo19gSjzeTPpoZQwZRblHabLr6mwOTw==
+
 react-dev-utils@^9.1.0:
   version "9.1.0"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-9.1.0.tgz#3ad2bb8848a32319d760d0a84c56c14bdaae5e81"
@@ -4334,6 +4339,11 @@ react-error-overlay@^6.0.3:
   version "6.0.11"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.11.tgz#92835de5841c5cf08ba00ddd2d677b6d17ff9adb"
   integrity sha512-/6UZ2qgEyH2aqzYZgQPxEnz33NJ2gNsnHA2o5+o4wW9bLM/JYQitNP9xPhsXwC08hMMovfGe/8retsdDsczPRg==
+
+react-refresh-typescript@^2.0.7:
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/react-refresh-typescript/-/react-refresh-typescript-2.0.7.tgz#ba91be2da4f1e86bba8629f1df0d4b9ff87b9970"
+  integrity sha512-KbuW57FauO11e6a9gU836sCm3M3z0b2+J2qPhUudg0QplOfz0eAF3gMeshcUC/ChfNLJCK1SZxvYmUtRxiZE5A==
 
 react-refresh-webpack-plugin@^0.1.0:
   version "0.1.0"
