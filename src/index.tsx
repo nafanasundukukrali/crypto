@@ -6,6 +6,8 @@ import App from "./App";
 
 import "@styles/global.scss";
 
+import "regenerator-runtime";
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );

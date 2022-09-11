@@ -5,17 +5,17 @@
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext"
+      "es6"
     ],
-    "baseUrl": ".",
+    "baseUrl": "src",
     "paths": {
-      "@components/*": ["src/components/*"],
-      "@config/*": ["src/config/*"],
-      "@styles/*": ["src/styles/*"],
-      "@utils/*": ["src/utils/*"],
-      "@pages/*": ["src/pages/*"],
-      "@fonts/*": ["src/fonts/*"],
-      "@store/*": ["src/store/*"]
+      "@components/*": ["components/*"],
+      "@config/*": ["config/*"],
+      "@styles/*": ["styles/*"],
+      "@utils/*": ["utils/*"],
+      "@pages/*": ["pages/*"],
+      "@fonts/*": ["fonts/*"],
+      "@store/*": ["store/*"]
     },
     "allowJs": true,
     "skipLibCheck": true,

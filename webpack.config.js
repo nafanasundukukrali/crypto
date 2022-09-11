@@ -29,6 +29,7 @@ const getConfigForStyles = (withModules = false) => {
 module.exports = {
   entry: path.join(srcPath, "index.tsx"), // имя файла бабла
   target: !isProd ? "web" : "browserslist",
+  devtool: isProd ? 'hidden-source-map' : 'eval-source-map',
   output: {
     path: __dirname,
     filename: "bundle.js"
@@ -76,7 +77,15 @@ module.exports = {
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
-    alias:
+    alias: {
+      components: path.join(srcPath, 'components'),
+      config: path.join(srcPath, 'config'),
+      styles: path.join(srcPath, 'styles'),
+      utils: path.join(srcPath, 'utils'),
+      pages: path.join(srcPath, 'pages'),
+      fonts: path.join(srcPath, 'fonts'),
+      store: path.join(srcPath, 'store')
+    }
   },
   devServer: {
     host: "127.0.0.1",
