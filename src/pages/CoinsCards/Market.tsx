@@ -1,4 +1,4 @@
-import {
+import React, {
   useState,
   useEffect,
   useCallback,
@@ -13,12 +13,13 @@ import Loader from "@components/Loader";
 import { Option } from "@components/MultiDropdown/MultiDropdown";
 import ROUTES from "@config/routes";
 import ChooseSortTypeBar from "@pages/CoinsCards/components/ChooseSortTypeBar";
-import CoinSmallGraph from "@pages/CoinsCards/components/CoinSmallGraph";
+// import CoinSmallGraph from "@pages/CoinsCards/components/CoinSmallGraph";
 import MarketHeader from "@pages/CoinsCards/components/MarketHeader";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 import styles from "./Market.module.scss";
+import CoinSmallGraph from "./components/CoinSmallGraph";
 
 const Market = () => {
   // Список монет

@@ -135,6 +135,8 @@ const CoinsCard = () => {
         <div className={styles["CoinsCard__main-block__transactions"]}></div>
       </div>
     );
+
+  return null;
 };
 
 export default CoinsCard;

@@ -89,7 +89,7 @@ const CoinsGraph: React.FC<CoinsGraphProps> = ({ id, timing, currency }) => {
 
   useEffect(() => {
     // @ts-ignore
-    if (graphValue.length) {
+    if (graphValue.length && chartContainerRef.current) {
       // @ts-ignore
       const chart = createChart(chartContainerRef.current, {});
 

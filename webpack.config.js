@@ -1,8 +1,8 @@
 const path = require("path");
 const htmlWebpackPlugin = require("html-webpack-plugin");
 const miniCSSExtractPlugin = require("mini-css-extract-plugin");
-const reactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
-const reactRefreshBabel = require("react-refresh/babel");
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+
 const tsCheckerPlugin = require("fork-ts-checker-webpack-plugin");
 const glob = require("glob");
 
@@ -43,18 +43,26 @@ module.exports = {
   devtool: isProd ? 'hidden-source-map' : 'eval-source-map',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
+    filename: 'bundle.[contenthash].js',
+    publicPath: "/"
   },
   plugins: [
+  !isProd && new ReactRefreshWebpackPlugin(),
   new htmlWebpackPlugin({
     template: path.join(srcPath, "index.html")
   }),
     new miniCSSExtractPlugin({
       filename: "[name]-[hash].css",
     }),
-    !isProd && new reactRefreshWebpackPlugin(),
     new tsCheckerPlugin()
   ].filter(Boolean),
+  optimization: {
+    minimize: isProd,
+    runtimeChunk: 'single',
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
   module: {
     rules: [
       {
@@ -66,17 +74,18 @@ module.exports = {
         exclude: /\.module\.s?css$/,
         use: getConfigForStyles(false)
       },
+      // {
+      //   test: /\.tsx?$/,
+      //   use: 'ts-loader',
+      // },
       {
-        test: /\.tsx?$/,
-        use: 'ts-loader',
-      },
-      {
-        test: /\.jsx?$/,
+        test: /\.(ts|js)x?$/,
+        exclude: /node_modules/,
         use: [{
           loader: "babel-loader",
-          // options: {
-          //   plugins: [!isProd && reactRefreshBabel()].filter(Boolean)
-          // }
+          options: {
+            plugins: [!isProd && 'react-refresh/babel'].filter(Boolean)
+          }
         }]
       },
       {
@@ -102,18 +111,23 @@ module.exports = {
       '@fonts': path.resolve(srcPath, 'fonts'),
       '@store': path.resolve(srcPath, 'store'),
     },
-    fallback: {
-      'react/jsx-runtime': 'react/jsx-runtime.js',
-      'react/jsx-dev-runtime': 'react/jsx-dev-runtime.js',
-    }
+    // fallback: {
+    //   'react/jsx-runtime': 'react/jsx-runtime.js',
+    //   'react/jsx-dev-runtime': 'react/jsx-dev-runtime.js',
+    // }
   },
   devServer: {
     host: "127.0.0.1",
+    static: {
+      directory: path.join(__dirname, 'dist'),
+    },
     port: 9000,
     hot: true,
+    open: true,
+    compress: true,
     historyApiFallback: true,
-    // contentBase: path.resolve(__dirname, 'public'),
   },
+  mode: !isProd ? 'development' : 'production',
   // externals: {
   //   'react': 'React'
   // },
