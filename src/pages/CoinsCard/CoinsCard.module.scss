@@ -31,7 +31,7 @@ body {
   display: flex;
   flex-flow: row;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
   padding: $smallFontSize * 0.5;
   margin: $smallFontSize * 0.5;
 }

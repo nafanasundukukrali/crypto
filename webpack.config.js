@@ -4,6 +4,7 @@ const miniCSSExtractPlugin = require("mini-css-extract-plugin");
 const reactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const reactRefreshBabel = require("react-refresh/babel");
 const tsCheckerPlugin = require("fork-ts-checker-webpack-plugin");
+const glob = require("glob");
 
 const srcPath = path.resolve(__dirname, "src");
 
@@ -20,19 +21,29 @@ const getConfigForStyles = (withModules = false) => {
   }), {
     loader: "postcss-loader",
     options: {
-      postcssOption: {
+      postcssOptions: {
         plugins: ['autoprefixer'],
       }
     }
-  },"sass-loader"];
+  }, {
+    loader: 'sass-loader',
+    options: {
+      sassOptions: {
+        includePaths: ['@']
+          .map((d) => path.join(__dirname, d))
+          .map((g) => glob.sync(g))
+          .reduce((a, c) => a.concat(c), [])
+      }
+    }
+  }];
 }
 module.exports = {
-  entry: path.join(srcPath, "index.tsx"), // имя файла бабла
+  entry:  path.join(srcPath, "index.tsx"), // имя файла бабла
   target: !isProd ? "web" : "browserslist",
   devtool: isProd ? 'hidden-source-map' : 'eval-source-map',
   output: {
-    path: __dirname,
-    filename: "bundle.js"
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js',
   },
   plugins: [
   new htmlWebpackPlugin({
@@ -56,12 +67,16 @@ module.exports = {
         use: getConfigForStyles(false)
       },
       {
-        test: /\.[jt]sx?$/,
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+      },
+      {
+        test: /\.jsx?$/,
         use: [{
           loader: "babel-loader",
-          options: {
-            plugins: [!isProd && reactRefreshBabel].filter(Boolean)
-          }
+          // options: {
+          //   plugins: [!isProd && reactRefreshBabel()].filter(Boolean)
+          // }
         }]
       },
       {
@@ -72,24 +87,34 @@ module.exports = {
             maxSize: 10 * 1024
           }
         }
-      }
+      },
     ]
   },
+
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
     alias: {
-      components: path.join(srcPath, 'components'),
-      config: path.join(srcPath, 'config'),
-      styles: path.join(srcPath, 'styles'),
-      utils: path.join(srcPath, 'utils'),
-      pages: path.join(srcPath, 'pages'),
-      fonts: path.join(srcPath, 'fonts'),
-      store: path.join(srcPath, 'store')
+      '@components': path.resolve(srcPath, 'components'),
+      '@config': path.resolve(srcPath, 'config'),
+      '@styles': path.join(srcPath, 'styles'),
+      '@utils': path.resolve(srcPath, 'utils'),
+      '@pages': path.resolve(srcPath, 'pages'),
+      '@fonts': path.resolve(srcPath, 'fonts'),
+      '@store': path.resolve(srcPath, 'store'),
+    },
+    fallback: {
+      'react/jsx-runtime': 'react/jsx-runtime.js',
+      'react/jsx-dev-runtime': 'react/jsx-dev-runtime.js',
     }
   },
   devServer: {
     host: "127.0.0.1",
     port: 9000,
     hot: true,
-  }
+    historyApiFallback: true,
+    // contentBase: path.resolve(__dirname, 'public'),
+  },
+  // externals: {
+  //   'react': 'React'
+  // },
 }
