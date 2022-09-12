@@ -66,17 +66,17 @@ module.exports = {
         exclude: /\.module\.s?css$/,
         use: getConfigForStyles(false)
       },
+      // {
+      //   test: /\.tsx?$/,
+      //   use: 'ts-loader',
+      // },
       {
-        test: /\.tsx?$/,
-        use: 'ts-loader',
-      },
-      {
-        test: /\.jsx?$/,
+        test: /\.[j|t]sx?$/,
         use: [{
           loader: "babel-loader",
-          // options: {
-          //   plugins: [!isProd && reactRefreshBabel()].filter(Boolean)
-          // }
+          options: {
+            plugins: [!isProd && require("react-refresh/babel")].filter(Boolean)
+          }
         }]
       },
       {
