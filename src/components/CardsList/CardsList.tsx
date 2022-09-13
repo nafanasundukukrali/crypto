@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 
 import CardListBody from "@components/CardsList/components/CardListBody";
 import ErrorReadDataMessage from "@components/ErrorReadDataMessage";

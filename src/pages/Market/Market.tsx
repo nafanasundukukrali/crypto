@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 
 import CardsList from "@components/CardsList/CardsList";
 import ErrorReadDataMessage from "@components/ErrorReadDataMessage";
@@ -15,15 +15,22 @@ import styles from "./Market.module.scss";
 const Market = () => {
   const currencyAndSortStore = useCurrencyParamStore();
   const marketStore = useLocalStore(() => new MarketStore());
+  marketStore?.fetchData();
 
   // Статус состояния рынка и получение спсика валют
   useEffect(() => {
-    marketStore?.fetchData();
+    if (marketStore)
+      marketStore.fetchData();
+  }, [marketStore, marketStore?.dailyMarketChange]);
+
+  useEffect(() => {
+    if (marketStore)
+      marketStore.fetchData();
   }, []);
 
   return (
     <>
-      {marketStore?.dailyMarketChange !== null &&
+      {marketStore && marketStore.dailyMarketChange !== null &&
         currencyAndSortStore.currencyList.length !== 0 && (
           <div className={styles["Market__main-div"]}>
             <MarketHeader capChangePercentage={marketStore.dailyMarketChange} />
@@ -33,7 +40,7 @@ const Market = () => {
             </div>
           </div>
         )}
-      <ErrorReadDataMessage isVisible={marketStore?.error} />
+      <ErrorReadDataMessage isVisible={!marketStore || marketStore?.error} />
     </>
   );
 };

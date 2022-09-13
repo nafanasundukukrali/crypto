@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 
 import Button from "@components/Button";
 import CardsList from "@components/CardsList/CardsList";
