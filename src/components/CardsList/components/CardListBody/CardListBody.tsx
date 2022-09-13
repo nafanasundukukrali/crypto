@@ -1,4 +1,4 @@
-import { FC, useCallback } from "react";
+import React, { FC, useCallback } from "react";
 
 import Card from "@components/Card";
 import CoinSmallGraph from "@components/CardsList/components/CardListBody/components/CoinSmallGraph";

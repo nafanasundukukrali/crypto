@@ -116,6 +116,8 @@ const CoinsCard = () => {
       <Loader loading={coinsCardStore?.loading} />
     </>
   );
+
+  return null;
 };
 
 export default observer(CoinsCard);
