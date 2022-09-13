@@ -16,7 +16,7 @@ export const normalizeLostData = async (
   };
 
   const getLostData = async (id: string) => {
-    const result = await getInformation("id");
+    const result = await getInformation(id);
     if (result)
       return {
         price_change_percentage_24h:

@@ -2,10 +2,10 @@ import { ILocalStore } from "@utils/useLocalStore";
 import axios from "axios";
 import {
   action,
-  computed, makeAutoObservable,
+  computed,
   makeObservable,
   observable,
-  runInAction
+  runInAction,
 } from "mobx";
 
 type PrivateFields = "_dailyMarketChange" | "_error";
@@ -15,7 +15,7 @@ export default class MarketStore implements ILocalStore {
   private _error: boolean = false;
 
   constructor() {
-    makeAutoObservable<MarketStore, PrivateFields>(this, {
+    makeObservable<MarketStore, PrivateFields>(this, {
       _dailyMarketChange: observable,
       _error: observable,
       dailyMarketChange: computed,
@@ -23,7 +23,7 @@ export default class MarketStore implements ILocalStore {
       fetchData: action,
     });
 
-    // runInAction(() => this.fetchData());
+    this.fetchData();
   }
 
   async fetchData() {
