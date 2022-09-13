@@ -1,0 +1,1 @@
+export { normalizeLostData } from "./CoinsListTypes";
