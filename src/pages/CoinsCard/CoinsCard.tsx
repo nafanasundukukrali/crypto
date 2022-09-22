@@ -76,12 +76,19 @@ const CoinsCard = () => {
               <span>
                 {coinsCardStore?.coinMainData["market_data"]["current_price"][
                   handleCurrency.selectedCurrencyList[0]["key"]
-                ].toFixed(2)}
+                ] ?
+                  coinsCardStore?.coinMainData["market_data"]["current_price"][
+                    handleCurrency.selectedCurrencyList[0]["key"]
+                    ].toFixed(2).toString() : "0.00"}
               </span>
               <span>
                 {coinsCardStore?.coinMainData["market_data"][
                   "price_change_percentage_24h"
-                ].toFixed(2)}
+                ] ?
+                  coinsCardStore?.coinMainData["market_data"][
+                    "price_change_percentage_24h"
+                    ].toFixed(2).toString() :
+                "0.00"}
               </span>
             </div>
             <div className={styles["CoinsCard__main-block__graph"]}>
