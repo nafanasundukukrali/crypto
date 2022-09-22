@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import Button from "@components/Button";
 import CardsList from "@components/CardsList/CardsList";
@@ -15,6 +15,7 @@ import styles from "./Search.module.scss";
 const Search = () => {
   useQueryParamsInit();
   const navigate = useNavigate();
+  const [localQuery, setLocalQuery] = useState<string>("");
 
   const handleCancelButton = useCallback(() => {
     rootStore.query.destroy();
@@ -29,18 +30,18 @@ const Search = () => {
         search: rootStore.query.search,
       });
     },
-    [rootStore.query]
+    [rootStore.query.search]
   );
 
   useEffect(() => {
-    const inputTimeout = setTimeout(handleQuery, 1000);
+    const inputTimeout = setTimeout(() => handleQuery(localQuery), 500);
     return () => clearTimeout(inputTimeout);
-  }, [rootStore.query]);
+  }, [localQuery]);
 
   return (
     <div className={styles["Search__main-div"]}>
       <div className={styles["Search__search-input"]}>
-        <Input onChange={handleQuery} value={rootStore.query.search} />
+        <Input value={localQuery} onChange={event => setLocalQuery(event)} />
         <Button onClick={handleCancelButton}>Cancel</Button>
       </div>
       <div className={styles["Search__main-div_CardList-block"]}>

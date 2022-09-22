@@ -79,13 +79,6 @@ const CoinsCard = () => {
                 ].toFixed(2)}
               </span>
               <span>
-                {
-                  coinsCardStore?.coinMainData["market_data"][
-                    "price_change_24h"
-                  ]
-                }
-              </span>
-              <span>
                 {coinsCardStore?.coinMainData["market_data"][
                   "price_change_percentage_24h"
                 ].toFixed(2)}

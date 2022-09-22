@@ -15,9 +15,13 @@ type CoinsGraphProps = {
 const CoinsGraph: React.FC<CoinsGraphProps> = ({ id, timing, currency }) => {
   const chartContainerRef = useRef();
   const [loading, setLoading] = useState(true);
-  const [graphValue, setGraphValue] = useState<Object>([]);
+  const [graphValue, setGraphValue] = useState<Object[]>([]);
   const [error, setError] = useState(false);
   const [chart, setChart] = useState<IChartApi | null>();
+  let max_time = 0;
+  let min_time = 0;
+  let max_value = 0;
+  let min_value = 0;
 
   const getSparklineData = useCallback(async () => {
     const prepareData = (prices: any[]) => {
@@ -34,6 +38,18 @@ const CoinsGraph: React.FC<CoinsGraphProps> = ({ id, timing, currency }) => {
               (time.getTime() + i * 5 * 60 * 1000) / 1000
             ) as UTCTimestamp,
           });
+
+          // if (max_value < prices[i][1])
+          // {
+          //   max_value = prices[i][1];
+          //   max_time = resultData[-1].time;
+          // }
+          //
+          // if (min_value > prices[i][1])
+          // {
+          //   min_value = prices[i][1];
+          //   min_time = resultData[-1].time;
+          // }
         }
       } else {
         prices.forEach((el) =>
@@ -43,8 +59,7 @@ const CoinsGraph: React.FC<CoinsGraphProps> = ({ id, timing, currency }) => {
           })
         );
       }
-      // eslint-disable-next-line no-console
-      // console.log(typeof resultData);
+
       return resultData;
     };
 
@@ -79,19 +94,27 @@ const CoinsGraph: React.FC<CoinsGraphProps> = ({ id, timing, currency }) => {
   }, [currency, id, timing]);
 
   useEffect(() => {
-    getSparklineData()
-      // .then(() => {
-      //   // @ts-ignore
-      //   setChart(createChart(chartContainerRef.current));
-      // })
-      .catch(() => {});
+    getSparklineData().catch(() => {});
   }, [currency, getSparklineData, id, timing]);
 
+  // @ts-ignore
   useEffect(() => {
     // @ts-ignore
     if (graphValue.length && chartContainerRef.current) {
       // @ts-ignore
-      const chart = createChart(chartContainerRef.current, {});
+      const chart = createChart(chartContainerRef.current, {
+        grid: {
+          vertLines: {
+            visible: false,
+          },
+          horzLines: {
+            visible: false,
+          }
+        },
+        // rightPriceScale: {
+        //   visible: false
+        // }
+      });
 
       if (timing <= 24)
         chart.applyOptions({
@@ -100,12 +123,40 @@ const CoinsGraph: React.FC<CoinsGraphProps> = ({ id, timing, currency }) => {
             secondsVisible: true,
           },
         });
-      const lineSerial = chart.addLineSeries({
+
+      let lineSerial = chart.addLineSeries({
         lineWidth: 3,
         color: styles["blue"],
+        // baseLineVisible: false,
+        // priceLineVisible: false,
+        lastValueVisible: false,
+        crosshairMarkerVisible: true,
+        priceFormat:{
+          precision: 2,
+        }
       });
+
+      // const markers = [];
+      //
+      // markers.push({
+      //   time: max_time,
+      //   position: 'aboveBar',
+      //   color: 'belowBar',
+      //   shape: 'arrowDown',
+      // })
+
+      // markers.push({
+      //   time: min_time,
+      //   position: 'belowBar',
+      //   color: 'black',
+      //   shape: 'arrowDown',
+      // })
+
       // @ts-ignore
       lineSerial.setData(graphValue);
+
+      // @ts-ignore
+      // lineSerial.setMarkers(markers);
       chart.timeScale().fitContent();
     }
   }, [graphValue]);

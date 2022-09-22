@@ -17,20 +17,20 @@ export const normalizeLostData = async (
 
   const getLostData = async (id: string) => {
     const result = await getInformation(id);
-    if (result)
+    if (Object.keys(result).length)
       return {
         price_change_percentage_24h:
           result["market_data"]["price_change_percentage_24h_in_currency"][
             rootStore.currency.selectedCurrencyList[0]["key"]
-          ],
+            ],
         sparkline_in_7d: result["market_data"]["sparkline_7d"],
         symbol: result["symbol"],
         image: result["image"]["small"],
         current_price:
           result["market_data"]["current_price"][
             rootStore.currency.selectedCurrencyList[0]["key"]
-          ],
-      };
+            ],
+      }
   };
 
   if (data)

@@ -54,10 +54,10 @@ const CardListBody: FC<CardListBodyProps> = ({
                   content={
                     <CoinSmallGraph
                       priceChangePercentage={
-                        coin["price_change_percentage_24h"]
+                        coin["price_change_percentage_24h"] ? coin["price_change_percentage_24h"] : 0.00
                       }
                       sparklineIn7d={prepareSparklineData(
-                        coin["sparkline_in_7d"]["price"]
+                        coin["sparkline_in_7d"]["price"] ?  coin["sparkline_in_7d"]["price"] : 0.00
                       )}
                       currencySymbol={symbol}
                       price={coin["current_price"]}

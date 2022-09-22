@@ -11,7 +11,7 @@ import styles from "./App.module.scss";
 function App() {
   return (
     <div className={styles["App__Main-div"]}>
-      <BrowserRouter basename={'/crypto'}>
+      <BrowserRouter>
         <Routes>
           <Route path={ROUTES.MARKET} element={<Market />} />
           <Route path={ROUTES.SEARCH} element={<Search />} />
