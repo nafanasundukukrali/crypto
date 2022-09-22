@@ -1,7 +1,7 @@
 {
   "name": "crypto",
   "version": "1.0.0",
-  "homepage": "https://nafanasundukukrali.github.io/crypto",
+  "homepage": "/crypto",
   "main": "index.js",
   "repository": "https://github.com/nafanasundukukrali/crypto.git",
   "author": "Konkina Alina <konkinaan@student.bmstu.ru>",
