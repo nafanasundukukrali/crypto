@@ -34,6 +34,11 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
   pluralizeOptions,
 }) => {
   const [isVisible, setVisible] = useState(false);
+  const [actualValueString, setValueString] = useState(pluralizeOptions(value))
+
+  const handleActualValueString = useCallback((value: Option[]) => {
+    setValueString(pluralizeOptions(value));
+  }, []);
 
   const handleValueList = useCallback(
     (el: Option) => {
@@ -46,6 +51,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
         ];
       }
       onChange(value);
+      handleActualValueString(value);
     },
     [value]
   );
@@ -58,10 +64,9 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
   return (
     <div key="multiDropdown__block" className={"multiDropdown__block"}>
       <MultiDropdownButton
-        value={value}
         isVisible={isVisible}
         onClick={handleVisible}
-        pluralizeOptions={pluralizeOptions}
+        actualValueString={actualValueString}
       />
       {isVisible && !disabled && (
         <div

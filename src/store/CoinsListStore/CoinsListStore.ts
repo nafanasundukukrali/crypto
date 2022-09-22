@@ -61,36 +61,6 @@ export default class CoinsListStore implements ILocalStore {
     return this._page;
   }
 
-  // async getLostData(id: string) {
-  //   const getInformation = async (): Promise<{ [p: string]: any }[]> => {
-  //     const url = `https://api.coingecko.com/api/v3/coins/${id}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=true`;
-  //     try {
-  //       const result = await axios.get(url);
-  //       if (result.status === 200) return result.data;
-  //       else return [];
-  //     } catch (e) {
-  //       return [];
-  //     }
-  //   };
-  //
-  //   return getInformation().then((data: { [p: string]: any }) => {
-  //     if (data !== null)
-  //       return {
-  //         price_change_percentage_24h:
-  //           data["market_data"]["price_change_percentage_24h_in_currency"][
-  //             rootStore.currency.selectedCurrencyList[0]["key"]
-  //           ],
-  //         sparkline_in_7d: data["market_data"]["sparkline_7d"],
-  //         symbol: data["symbol"],
-  //         image: data["image"]["small"],
-  //         current_price:
-  //           data["market_data"]["current_price"][
-  //             rootStore.currency.selectedCurrencyList[0]["key"]
-  //           ],
-  //       };
-  //   });
-  // }
-
   async getCoinsList(): Promise<{ [p: string]: any }[]> {
     let url: string = "";
     if (!rootStore.currency.selectedSortType)
@@ -102,6 +72,7 @@ export default class CoinsListStore implements ILocalStore {
       url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${rootStore.currency.selectedCurrencyList[0]["key"]}&order=${rootStore.currency.selectedSortType}&per_page=${rootStore.coinsOnePageCoinsCount}&page=${this.page}&sparkline=true`;
 
     const result = await axios.get(url);
+
     return runInAction(() => {
       if (result.status === 200) {
         if (!rootStore.query.search) {
@@ -139,11 +110,6 @@ export default class CoinsListStore implements ILocalStore {
       let data = await this.getCoinsList();
 
       if (data && rootStore.query.search) data = await normalizeLostData(data);
-      // for (let i = 0; i < data.length; i++)
-      //   data[i] = Object.assign(
-      //     data[i],
-      //     await this.getLostData(data[i]["id"])
-      //   );
 
       if (data.length) {
         data = data.filter((element, index) => {

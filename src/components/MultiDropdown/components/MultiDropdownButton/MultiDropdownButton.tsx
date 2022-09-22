@@ -1,23 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Option } from "@components/MultiDropdown/MultiDropdown";
 import styles from "@components/MultiDropdown/MultiDropdown.module.scss";
 import cn from "classnames";
 
 type MultiDropdownButtonProps = {
-  value: Option[];
   isVisible: boolean;
   onClick: () => void;
   disabled?: boolean;
-  pluralizeOptions: (value: Option[]) => string;
+  actualValueString: string;
 };
 
 const MultiDropdownButton: React.FC<MultiDropdownButtonProps> = ({
-  value,
   isVisible,
   onClick,
   disabled,
-  pluralizeOptions,
+  actualValueString,
 }) => {
   return (
     <button
@@ -30,16 +28,16 @@ const MultiDropdownButton: React.FC<MultiDropdownButtonProps> = ({
       disabled={disabled}
     >
       <div className={styles["multiDropdown__block__mainClickButton__content"]}>
-        {pluralizeOptions(value)}
+        {actualValueString}
       </div>
       <div
         className={cn(
           styles["multiDropdown__block__mainClickButton__icon"],
-          isVisible && styles["multiDropdown__block__mainClickButton__clicked"]
+          isVisible && styles["multiDropdown__block__mainClickButton__icon_clicked_1"]
         )}
       ></div>
     </button>
   );
 };
 
-export default MultiDropdownButton;
+export default React.memo(MultiDropdownButton);

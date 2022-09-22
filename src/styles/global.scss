@@ -14,11 +14,11 @@
 #root {
   @include flexboxWithCenterColumnContent;
   width: 100%;
-  background: $mainBackgroundColor;
+  background: $mainBackgroundColor !important;
 }
 
 body {
   margin: 0;
   width: 100%;
-  background: $mainBackgroundColor;
+  background: $mainBackgroundColor !important;
 }

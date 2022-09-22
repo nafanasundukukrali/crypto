@@ -13,7 +13,6 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import styles from "./Search.module.scss";
 
 const Search = () => {
-  const currency = useCurrencyParamStore();
   useQueryParamsInit();
   const navigate = useNavigate();
 
@@ -34,9 +33,9 @@ const Search = () => {
   );
 
   useEffect(() => {
-    const inputTimeout = setTimeout(handleQuery, 500);
+    const inputTimeout = setTimeout(handleQuery, 1000);
     return () => clearTimeout(inputTimeout);
-  }, [rootStore.query.search]);
+  }, [rootStore.query]);
 
   return (
     <div className={styles["Search__main-div"]}>

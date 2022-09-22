@@ -2,7 +2,6 @@ import React, { useCallback, useEffect } from "react";
 
 import CardListBody from "@components/CardsList/components/CardListBody";
 import ErrorReadDataMessage from "@components/ErrorReadDataMessage";
-import Loader from "@components/Loader";
 import ROUTES from "@config/routes";
 import CoinsListStore from "@store/CoinsListStore";
 import rootStore from "@store/RootStore";
@@ -60,21 +59,20 @@ const CardsList = () => {
     [currencyRootStore.selectedCurrencyList, currencyRootStore.selectedSortType]
   );
 
-  // TODO: end of list (find API Max Coin's list length)
   // TODO: check which data gets from api
   return (
-    <>
+    <div style={{display: "flex", flexDirection: "column"}}>
       <CardListBody
-        isVisible={coinsListStore.meta === Meta.success}
+        isVisible={coinsListStore.meta !== Meta.error}
         coinsList={coinsListStore.list}
         handleCoins={handleCoins}
         handleCoinNavigate={handleCoinNavigate}
         symbol={currencyRootStore.selectedCurrencySymbol}
         onePageCountCoins={rootStore.coinsOnePageCoinsCount}
+        endList={coinsListStore?.listEnd}
       />
-      <Loader loading={coinsListStore?.meta === Meta.loading} />
       <ErrorReadDataMessage isVisible={coinsListStore?.meta === Meta.error} />
-    </>
+    </div>
   );
 };
 
