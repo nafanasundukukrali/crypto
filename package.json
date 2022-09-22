@@ -1,11 +1,14 @@
 {
   "name": "crypto",
   "version": "1.0.0",
+  "homepage": "https://nafanasundukukrali.github.io/crypto",
   "main": "index.js",
   "repository": "https://github.com/nafanasundukukrali/crypto.git",
   "author": "Konkina Alina <konkinaan@student.bmstu.ru>",
   "license": "MIT",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "dev": "NODE_ENV=development npx webpack serve --mode=development",
     "build": "NODE_ENV=production npx webpack --mode=production",
     "ts-checker": "tsc --project tsconfig.json",
@@ -43,6 +46,7 @@
     "eslint-plugin-n": "^15.0.0",
     "eslint-plugin-promise": "^6.0.0",
     "fork-ts-checker-webpack-plugin": "^7.2.13",
+    "gh-pages": "^4.0.0",
     "html-webpack-plugin": "^5.5.0",
     "lightweight-charts": "^3.8.0",
     "mini-css-extract-plugin": "^2.6.1",

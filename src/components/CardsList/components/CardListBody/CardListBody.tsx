@@ -1,8 +1,9 @@
-import React, { FC, useCallback } from "react";
+import React, { FC, useCallback, useLayoutEffect, useState } from "react";
 
 import Card from "@components/Card";
 import CoinSmallGraph from "@components/CardsList/components/CardListBody/components/CoinSmallGraph";
 import { Virtuoso } from "react-virtuoso";
+import Loader from "@components/Loader";
 
 type CardListBodyProps = {
   isVisible: boolean;
@@ -11,6 +12,7 @@ type CardListBodyProps = {
   handleCoinNavigate: (value: string) => void;
   symbol: string;
   onePageCountCoins: number;
+  endList?: boolean;
 };
 const CardListBody: FC<CardListBodyProps> = ({
   isVisible,
@@ -19,6 +21,7 @@ const CardListBody: FC<CardListBodyProps> = ({
   handleCoinNavigate,
   symbol,
   onePageCountCoins,
+  endList
 }) => {
   const prepareSparklineData = useCallback((data: Object[]) => {
     const result: any[] = [];
@@ -26,13 +29,19 @@ const CardListBody: FC<CardListBodyProps> = ({
     return result;
   }, []);
 
+  const Loading = () => {
+    return (
+      <Loader />
+    )
+  }
+
   return (
     <>
       {isVisible && (
         <Virtuoso
           useWindowScroll
           data={coinsList}
-          endReached={handleCoins}
+          endReached={!endList ? handleCoins : undefined}
           overscan={onePageCountCoins}
           itemContent={(index: number, coin: { [p: string]: any }) => {
             return (
@@ -58,6 +67,7 @@ const CardListBody: FC<CardListBodyProps> = ({
               </div>
             );
           }}
+          components={{ Footer: !endList ? Loading : undefined }}
         />
       )}
     </>

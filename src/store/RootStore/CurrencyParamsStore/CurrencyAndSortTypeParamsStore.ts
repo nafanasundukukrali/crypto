@@ -35,7 +35,8 @@ export default class CurrencyAndSortTypeParamsStore {
 
     runInAction(() => {
       this.getCurrencyList().then(() => {
-        const string = localStorage.getItem("selectedCurrency");
+        let string = localStorage.getItem("selectedCurrency");
+
         if (string) {
           const value = JSON.parse(string);
 
@@ -53,6 +54,10 @@ export default class CurrencyAndSortTypeParamsStore {
         } else {
           this._selectedCurrencyList = [this._currencyList[0]];
         }
+
+        this._selectedCurrencySymbol = getSymbolFromCurrency(
+          this._selectedCurrencyList[0]["key"]
+        );
       });
     });
   }

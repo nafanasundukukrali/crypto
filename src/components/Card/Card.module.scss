@@ -7,7 +7,7 @@
 //}
 .card {
     position: relative;
-    width: 90%;
+    width: 100%;
     display: grid;
     height: min-content;
     box-sizing: border-box;
@@ -19,8 +19,8 @@
     -moz-box-shadow: 0px 0px 8px 0px rgba(34, 60, 80, 0.2);
     box-shadow: 0px 0px 8px 0px rgba(34, 60, 80, 0.2);
     grid-template-areas:
-    "A A B B D D D"
-    "A A C C D D D";
+    "A A B B D D D D D"
+    "A A C C D D D D D";
     justify-items: left;
     align-items: center;
     margin: 10px;
@@ -70,12 +70,7 @@
 
 .card__userContent {
     grid-area: D;
-    width: 100%;
+    width: 100% !important;
     height: 100%;
-    display: flex;
-
-    div {
-        width: 100%;
-        position: relative;
-    }
+    position: relative;
 }
